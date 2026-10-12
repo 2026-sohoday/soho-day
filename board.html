@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Stylish&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1E3A6E;--gold:#FFD84D;--pink:#FF9EC2;--sky:#8FD3FF;--lilac:#C7B3FF;
+:root{--ink:#1E3A6E;--gold:#FFD84D;--pink:#FF9EC2;--sky:#E6C9A4;--lilac:#C7B3FF;--snow:#E6F0FF;
  --ui:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;
  --hand:"Stylish","Apple SD Gothic Neo",sans-serif;--cute:"Jua","Apple SD Gothic Neo",sans-serif;--display:"Black Han Sans","Apple SD Gothic Neo",sans-serif}
 *{box-sizing:border-box}
@@ -81,8 +81,8 @@ h1 small{display:block;font-family:var(--cute);font-size:.3em;margin-top:10px;co
   <div class="board" id="board"></div>
 </div>
 <script>
-const W={gold:['☀️','맑음'],pink:['🌈','무지개'],sky:['⛅','시원한 가을 날씨'],lilac:['✨','별빛 반짝']};
-const C={gold:'var(--gold)',pink:'var(--pink)',sky:'var(--sky)',lilac:'var(--lilac)'};
+const W={gold:['🌸','따스한 봄날씨'],pink:['🌈','더운 여름 비온 뒤 무지개'],sky:['🍂','시원한 가을 날씨'],lilac:['✨','반짝이는 겨울밤'],snow:['❄️','설레는 첫눈 오는 겨울']};
+const C={gold:'var(--gold)',pink:'var(--pink)',sky:'var(--sky)',lilac:'var(--lilac)',snow:'var(--snow)'};
 
 function sparkle(){
   const box=document.getElementById('confetti'), em=['✨','⭐','💛','🌟'];

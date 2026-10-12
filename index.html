@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Stylish&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--night:#150E2B;--stage:#241747;--ink:#22183F;--muted:#6E6590;--line:#CFE8FF;
- --gold:#FFD84D;--pink:#FF9EC2;--sky:#8FD3FF;--lilac:#C7B3FF;--danger:#D23A5F;
+ --gold:#FFD84D;--pink:#FF9EC2;--sky:#E6C9A4;--lilac:#C7B3FF;--snow:#E6F0FF;--danger:#D23A5F;
  --ui:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;
  --hand:"Stylish","Apple SD Gothic Neo",sans-serif;--display:"Black Han Sans","Apple SD Gothic Neo",sans-serif}
 *{box-sizing:border-box}
@@ -61,8 +61,25 @@ input:focus,textarea:focus{border-color:#5DB4FF}
 textarea{min-height:140px;resize:vertical;font-family:var(--hand);font-size:19px;line-height:1.6;
  background:repeating-linear-gradient(#fff 0 29px,#E3F1FF 29px 30px);background-attachment:local}
 .field{margin-bottom:14px}
+/* 개인정보 수집 동의 */
+.consent{background:#F4FAFF;border:1.5px solid #CFE8FF;border-radius:14px;padding:12px 14px;margin-bottom:16px}
+.consent .agree{display:flex;align-items:center;gap:10px;margin:0;font-size:14px;font-weight:600;color:#1E3A6E;cursor:pointer}
+.consent input[type=checkbox]{width:20px;height:20px;margin:0;flex:none;accent-color:#5DB4FF;cursor:pointer;padding:0}
+.consent .req{color:#FF5C8A;font-weight:700}
+.consent details{margin-top:8px}
+.consent summary{font-size:13px;color:#3B6AA8;cursor:pointer;width:max-content}
+.consent dl{margin:10px 0 2px;font-size:13px;color:#4A5A80;line-height:1.6;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px}
+.consent dt{font-weight:700;color:#2A5A9E}
+.consent dd{margin:0}
+.consent .note{grid-column:1/-1;margin-top:4px;color:#6E7EA3}
+.consent dd b{color:#1E3A6E}
+.consent-hint{margin:8px 0 0;font-size:12.5px;font-weight:700;color:#4A5A80}
+input:disabled{background:#F2F5FA;color:#9AA6C0;cursor:not-allowed}
+input:disabled::placeholder{color:#9AA6C0}
+.field + .consent{margin-top:-4px}
 .row{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.sw{display:flex;gap:10px;align-items:center}
+.sw{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sw-name{margin:6px 0 0;font-family:"Jua",var(--ui);font-size:14px;color:#2A5A9E;min-height:1.4em}
 .sw span{font-size:13px;color:var(--muted)}
 .sw button{width:34px;height:34px;border-radius:50%;border:2px solid #fff;cursor:pointer;box-shadow:0 0 0 1.5px var(--line);font-size:16px;line-height:1;padding:0;display:flex;align-items:center;justify-content:center}
 .sw button[aria-checked=true]{box-shadow:0 0 0 2.5px #1E3A6E;transform:scale(1.08)}
@@ -70,7 +87,7 @@ textarea{min-height:140px;resize:vertical;font-family:var(--hand);font-size:19px
  background:linear-gradient(180deg,#FFE88A,#FFC93C);box-shadow:0 4px 0 #E8A920,0 8px 16px rgba(255,201,77,.35);transition:transform .1s}
 .btn:active{transform:translateY(2px);box-shadow:0 2px 0 #E8A920}
 .btn:disabled{opacity:.45;cursor:default;box-shadow:none}
-.btn:focus-visible,.sw button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.btn:focus-visible,.sw button:focus-visible{outline:3px solid #5DB4FF;outline-offset:2px}
 .status{position:relative;font-size:13px;color:var(--muted);min-height:1.2em;margin:10px 0 0}
 .status.err{color:var(--danger)}
 /* 내가 보낸 축하 = 날씨 카드 */
@@ -81,6 +98,7 @@ textarea{min-height:140px;resize:vertical;font-family:var(--hand);font-size:19px
 .wcard .icon{font-size:24px;line-height:1}
 .wcard .label{font-family:"Jua",var(--ui);font-size:15px;color:rgba(30,58,110,.85)}
 .wcard p{margin:0;padding:14px 18px 6px;font-family:var(--hand);font-size:18px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.wcard p:last-child{padding-bottom:16px}
 .wcard .from{font-family:var(--hand);font-size:17px;text-align:right;padding:0 18px 14px;color:#2A5A9E}
 </style>
 </head>
@@ -114,14 +132,27 @@ textarea{min-height:140px;resize:vertical;font-family:var(--hand);font-size:19px
       <i class="cloud c1" aria-hidden="true"></i><i class="cloud c2" aria-hidden="true"></i>
     </div>
     <div class="wx-stats">
-      <span>축하 확률 <b>100%</b></span><span>설렘 지수 <b>15°</b></span><span>하루 종일 맑음 ☀️</span>
+      <span>축하 확률 <b>100%</b></span><span>데뷔 <b>15주년</b> 특보 📢</span><span>설렘 지수 <b>MAX</b></span><span>하루 종일 맑음 ☀️</span>
     </div>
     <div class="wx-body">
       <p class="to">To. 윤소호</p>
-      <div class="field"><label for="name">보내는 사람</label><input id="name" maxlength="20" placeholder="이름 또는 아이디"></div>
+      <div class="field"><label for="name">트위터 아이디</label><input id="name" maxlength="20" placeholder="개인정보 수집에 동의하면 입력할 수 있어요" autocomplete="off" autocapitalize="off" spellcheck="false" disabled></div>
+      <div class="consent">
+        <label class="agree"><input type="checkbox" id="agree"><span><span class="req">[선택]</span> 개인정보 수집·이용에 동의합니다</span></label>
+        <details>
+          <summary>내용 보기</summary>
+          <dl>
+            <dt>수집 항목</dt><dd>트위터 아이디</dd>
+            <dt>수집 목적</dt><dd>윤소호 배우님 15주년 축하 이벤트 참가 및 당첨자 안내</dd>
+            <dt>보유 기간</dt><dd><b>2026년 12월 31일까지 보관 후 파기 (미당첨자의 아이디는 즉시 파기합니다.)</b></dd>
+            <dd class="note">동의를 거부할 수 있으며, 동의하지 않으면 축하 이벤트 참가 및 당첨이 어려울 수 있습니다.</dd>
+          </dl>
+        </details>
+        <p class="consent-hint" id="hint">동의하지 않아도 축하 메시지는 보낼 수 있어요. 이 경우 트위터 아이디는 수집하지 않아요.</p>
+      </div>
       <div class="field"><label for="msg">축하 메시지</label><textarea id="msg" maxlength="500" placeholder="데뷔 15주년 진심으로 축하드려요!"></textarea></div>
       <div class="row">
-        <div class="sw" id="sw" role="radiogroup" aria-label="오늘의 날씨"><span>오늘의 날씨</span></div>
+        <div class="swwrap"><div class="sw" id="sw" role="radiogroup" aria-label="오늘의 날씨"><span>오늘의 날씨</span></div><p class="sw-name" id="swName" aria-live="polite"></p></div>
         <button class="btn" id="save" disabled>축하 보내기 ☀️</button>
       </div>
       <p class="status" id="status" role="status"></p>
@@ -134,9 +165,9 @@ textarea{min-height:140px;resize:vertical;font-family:var(--hand);font-size:19px
 // ★ Apps Script 웹 앱 주소(…/exec)를 여기에 붙여넣어 주세요
 const API_URL='https://script.google.com/macros/s/AKfycbxHqEIvh9UbueZl_uJGhxX6EgUtugUyIBgtP6zxJ80SA_SYaLMkSfETgSjtgvy94bMl_A/exec';
 
-const C={gold:'var(--gold)',pink:'var(--pink)',sky:'var(--sky)',lilac:'var(--lilac)'};
-const NAMES={gold:'맑음',pink:'무지개',sky:'시원한 가을 날씨',lilac:'별빛 반짝'};
-const W={gold:'☀️',pink:'🌈',sky:'⛅',lilac:'✨'};
+const C={gold:'var(--gold)',pink:'var(--pink)',sky:'var(--sky)',lilac:'var(--lilac)',snow:'var(--snow)'};
+const NAMES={gold:'따스한 봄날씨',pink:'더운 여름 비온 뒤 무지개',sky:'시원한 가을 날씨',lilac:'반짝이는 겨울밤',snow:'설레는 첫눈 오는 겨울'};
+const W={gold:'🌸',pink:'🌈',sky:'🍂',lilac:'✨',snow:'❄️'};
 const $=id=>document.getElementById(id);
 let color='gold', mine=[];
 const KEY='debut-cheer-mine';
@@ -144,11 +175,23 @@ try{mine=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){mine=[]}
 
 Object.keys(C).forEach(k=>{const b=document.createElement('button');b.type='button';b.style.background=C[k];b.textContent=W[k];b.title=NAMES[k];
   b.setAttribute('role','radio');b.setAttribute('aria-label',NAMES[k]);b.dataset.c=k;b.onclick=()=>pick(k);$('sw').appendChild(b)});
-function pick(k){color=k;document.querySelectorAll('#sw button').forEach(b=>b.setAttribute('aria-checked',b.dataset.c===k))}
+function pick(k){color=k;document.querySelectorAll('#sw button').forEach(b=>b.setAttribute('aria-checked',b.dataset.c===k));$('swName').textContent=W[k]+' '+NAMES[k];}
 pick('gold');
 
-function check(){$('save').disabled=!($('name').value.trim()&&$('msg').value.trim())}
-$('name').oninput=check;$('msg').oninput=check;
+function check(){
+  const agreed=$('agree').checked;
+  $('save').disabled=!($('msg').value.trim()&&(!agreed||$('name').value.trim()));
+}
+function syncAgree(){
+  const agreed=$('agree').checked;
+  $('name').disabled=!agreed;
+  if(!agreed)$('name').value='';
+  $('name').placeholder=agreed?'@아이디':'개인정보 수집에 동의하면 입력할 수 있어요';
+  $('hint').textContent=agreed?'이벤트 당첨 안내를 위해 트위터 아이디를 입력해 주세요.':'동의하지 않아도 축하 메시지는 보낼 수 있어요. 이 경우 트위터 아이디는 수집하지 않아요.';
+  if(agreed)$('name').focus();
+  check();
+}
+$('name').oninput=check;$('msg').oninput=check;$('agree').onchange=syncAgree;
 
 function renderMine(){
   $('mine').hidden=!mine.length;$('list').textContent='';
@@ -160,16 +203,17 @@ function renderMine(){
     const lb=document.createElement('span');lb.className='label';lb.textContent=NAMES[k];
     band.append(ic,lb);
     const p=document.createElement('p');p.textContent=m.text;
-    const f=document.createElement('div');f.className='from';f.textContent='from. '+m.name;
-    c.append(band,p,f);$('list').appendChild(c);
+    c.append(band,p);
+    if(m.name){const f=document.createElement('div');f.className='from';f.textContent='from. '+m.name;c.append(f);}$('list').appendChild(c);
   });
 }
 renderMine();
 
 $('save').onclick=()=>{
-  const name=$('name').value.trim(), text=$('msg').value.trim();
+  const agree=$('agree').checked;
+  const name=agree?$('name').value.trim():'', text=$('msg').value.trim();
   $('save').disabled=true;$('status').className='status';$('status').textContent='보내는 중…';
-  fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name,text,color})})
+  fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name,text,color,agree})})
     .then(r=>r.json())
     .then(res=>{
       if(!res||!res.ok)throw new Error(res&&res.error||'');
