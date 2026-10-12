@@ -29,6 +29,7 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(50px,14vw,84px);li
  text-shadow:0 3px 0 rgba(255,255,255,.7)}
 h1 small{display:block;font-family:"Jua",var(--ui);font-size:.34em;color:#2A5A9E;margin-top:10px}
 .sub{color:#3B6AA8;font-size:15px;margin:14px 0 0}
+.notice{display:inline-block;margin:12px 0 0;padding:6px 12px;font-size:11.5px;line-height:1.55;color:#4A5A80;background:rgba(255,255,255,.7);border-radius:12px}
 /* ☀️ 축하 예보 카드 */
 .letter{position:relative;background:#fff;color:var(--ink);border-radius:26px;overflow:hidden;box-shadow:0 16px 40px rgba(30,58,110,.2)}
 .wx{position:relative;display:flex;align-items:center;gap:14px;padding:20px 20px 18px;overflow:hidden;
@@ -49,6 +50,19 @@ h1 small{display:block;font-family:"Jua",var(--ui);font-size:.34em;color:#2A5A9E
 .wx-stats span{background:#F2F9FF;border:1.5px solid #CFE8FF;color:#2A5A9E;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:600}
 .wx-stats b{color:#FF5C8A}
 .wx-body{padding:16px 20px 20px}
+/* 이벤트 종료 화면 */
+.closed .wx{background:linear-gradient(180deg,#3E4C8A 0%,#7E8FD0 100%)}
+.closed .wx-txt h2{color:#fff}
+.wx-off{display:inline-flex;align-items:center;gap:5px;background:#8C96B8;color:#fff;font-size:11px;font-weight:700;border-radius:6px;padding:1px 8px;letter-spacing:.06em}
+.wx-moon{width:78px;height:78px;flex:none;animation:bob 3.6s ease-in-out infinite}
+.star{position:absolute;color:#FFF6C8;font-size:12px;animation:twinkle 2.4s ease-in-out infinite}
+.star.s1{right:34px;top:20px}.star.s2{right:86px;top:44px;font-size:9px;animation-delay:.8s}.star.s3{right:20px;bottom:18px;font-size:10px;animation-delay:1.5s}
+@keyframes twinkle{50%{opacity:.25}}
+.closed-body{padding:20px 22px 24px;text-align:center}
+.closed-body .big{font-family:"Jua",var(--ui);font-size:22px;color:#1E3A6E;margin:0 0 12px;line-height:1.35}
+.closed-body p{margin:0 0 10px;font-size:15px;color:#3B5580;line-height:1.7}
+.closed-body .thanks{font-family:var(--hand);font-size:21px;color:#1E3A6E;margin-top:16px}
+@media (prefers-reduced-motion:reduce){.wx-moon,.star{animation:none}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
@@ -108,10 +122,11 @@ input:disabled::placeholder{color:#9AA6C0}
   <header>
     <div class="date">2011.12.06 데뷔</div>
     <h1>윤소호<small>배우님의 데뷔 15주년을 축하합니다!</small></h1>
-    <p class="sub">데뷔 15주년을 맞은 배우님께 축하의 한마디를 작성해주세요.<br>내가 쓴 메시지는 나와 윤소호만 볼 수 있어요.</p>
+    <p class="sub">데뷔 15주년을 맞은 배우님께 축하의 한마디를 작성해주세요.<br>내가 쓴 메시지는 나와 배우님만 볼 수 있어요.</p>
+    <p class="notice">※ 악의적인 내용, 비방·욕설, 광고 등 이벤트 취지에 맞지 않는 메시지는<br>운영진 확인 후 사전 안내 없이 삭제될 수 있어요.</p>
   </header>
 
-  <div class="letter">
+  <div class="letter" id="open">
     <div class="wx">
       <svg class="wx-sun" viewBox="0 0 100 100" aria-hidden="true">
         <g class="rays" stroke="#FFB627" stroke-width="6" stroke-linecap="round">
@@ -159,10 +174,40 @@ input:disabled::placeholder{color:#9AA6C0}
     </div>
   </div>
 
+  <div class="letter closed" id="closed" hidden>
+    <div class="wx">
+      <svg class="wx-moon" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M62 14a36 36 0 1 0 24 58A30 30 0 0 1 62 14z" fill="#FFE27A"/>
+        <path d="M40 52 Q44 56 48 52" fill="none" stroke="#3B2A1A" stroke-width="3" stroke-linecap="round"/>
+        <path d="M54 52 Q58 56 62 52" fill="none" stroke="#3B2A1A" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="38" cy="61" rx="5" ry="3" fill="#FF8FB1" opacity=".8"/><ellipse cx="64" cy="61" rx="5" ry="3" fill="#FF8FB1" opacity=".8"/>
+        <path d="M46 63 Q51 67 56 63" fill="none" stroke="#3B2A1A" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <div class="wx-txt">
+        <span class="wx-off">방송 종료</span>
+        <h2>오늘의 축하 예보는<br>여기까지예요</h2>
+      </div>
+      <i class="star s1" aria-hidden="true">✦</i><i class="star s2" aria-hidden="true">✦</i><i class="star s3" aria-hidden="true">✦</i>
+    </div>
+    <div class="closed-body">
+      <p class="big">윤소호 배우님 데뷔 15주년<br>축하 이벤트가 종료되었어요</p>
+      <p>보내주신 따뜻한 축하 예보는<br>배우님께 소중히 전해드릴게요.</p>
+      <p>당첨자분들께는 동의해 주신 트위터 아이디로<br>개별 안내드릴 예정이에요.</p>
+      <p class="thanks">함께 축하해 주셔서 고마워요 💛<br>앞으로의 날들도 늘 맑음이길 ☀️</p>
+    </div>
+  </div>
+
   <div class="mine" id="mine" hidden><h2>내가 보낸 축하 예보</h2><div id="list"></div></div>
 </div>
 <script>
 // ★ Apps Script 웹 앱 주소(…/exec)를 여기에 붙여넣어 주세요
+// ★ 이벤트 종료 일시 (한국 시간). 이 시간이 지나면 쓰는 카드가 종료 안내로 바뀌어요.
+const END_AT=new Date('2026-12-06T23:59:59+09:00');
+function isClosed(){return Date.now()>END_AT.getTime()}
+function showClosed(){const o=document.getElementById('open'),c=document.getElementById('closed');if(o)o.hidden=true;if(c)c.hidden=false;}
+if(isClosed())showClosed();
+setInterval(()=>{if(isClosed())showClosed()},30000);
+
 const API_URL='https://script.google.com/macros/s/AKfycbxHqEIvh9UbueZl_uJGhxX6EgUtugUyIBgtP6zxJ80SA_SYaLMkSfETgSjtgvy94bMl_A/exec';
 
 const C={gold:'var(--gold)',pink:'var(--pink)',sky:'var(--sky)',lilac:'var(--lilac)',snow:'var(--snow)'};
@@ -210,12 +255,14 @@ function renderMine(){
 renderMine();
 
 $('save').onclick=()=>{
+  if(isClosed()){showClosed();return;}
   const agree=$('agree').checked;
   const name=agree?$('name').value.trim():'', text=$('msg').value.trim();
   $('save').disabled=true;$('status').className='status';$('status').textContent='보내는 중…';
   fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name,text,color,agree})})
     .then(r=>r.json())
     .then(res=>{
+      if(res&&res.closed){showClosed();return;}
       if(!res||!res.ok)throw new Error(res&&res.error||'');
       mine.push({name,text,color});
       try{localStorage.setItem(KEY,JSON.stringify(mine))}catch(e){}
