@@ -1,1 +1,189 @@
-<h1>안녕하세요!</h1> 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>윤소호 데뷔 15주년 축하</title>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Stylish&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--night:#150E2B;--stage:#241747;--ink:#22183F;--muted:#6E6590;--line:#CFE8FF;
+ --gold:#FFD84D;--pink:#FF9EC2;--sky:#8FD3FF;--lilac:#C7B3FF;--danger:#D23A5F;
+ --ui:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;
+ --hand:"Stylish","Apple SD Gothic Neo",sans-serif;--display:"Black Han Sans","Apple SD Gothic Neo",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:#1E3A6E;font-family:var(--ui);line-height:1.6;overflow-x:hidden;
+ background:linear-gradient(180deg,#6EC1FF 0%,#A9DCFF 38%,#E4F4FF 100%) fixed}
+/* 배경 구름 */
+.sky{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bg-cloud{position:absolute;background:#fff;border-radius:999px;opacity:.75;animation:float 18s ease-in-out infinite}
+.bg-cloud::before,.bg-cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.bg-cloud.a{width:180px;height:52px;left:-40px;top:110px}
+.bg-cloud.a::before{width:80px;height:80px;left:30px;top:-40px}.bg-cloud.a::after{width:56px;height:56px;left:95px;top:-26px}
+.bg-cloud.b{width:140px;height:42px;right:-30px;top:240px;opacity:.6;animation-duration:22s;animation-direction:reverse}
+.bg-cloud.b::before{width:62px;height:62px;left:22px;top:-30px}.bg-cloud.b::after{width:44px;height:44px;left:72px;top:-20px}
+@keyframes float{0%,100%{transform:translateX(0)}50%{transform:translateX(40px)}}
+.wrap{max-width:560px;margin:0 auto;padding:0 20px 64px;position:relative;z-index:1}
+header{position:relative;text-align:center;padding:48px 0 30px}
+.date{display:inline-block;font-size:14px;font-weight:600;color:#2A5A9E;background:rgba(255,255,255,.8);border:1.5px solid #CFE8FF;border-radius:999px;padding:3px 14px;margin-bottom:14px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(50px,14vw,84px);line-height:1.05;margin:0;color:#1E3A6E;
+ text-shadow:0 3px 0 rgba(255,255,255,.7)}
+h1 small{display:block;font-family:"Jua",var(--ui);font-size:.34em;color:#2A5A9E;margin-top:10px}
+.sub{color:#3B6AA8;font-size:15px;margin:14px 0 0}
+/* ☀️ 축하 예보 카드 */
+.letter{position:relative;background:#fff;color:var(--ink);border-radius:26px;overflow:hidden;box-shadow:0 16px 40px rgba(30,58,110,.2)}
+.wx{position:relative;display:flex;align-items:center;gap:14px;padding:20px 20px 18px;overflow:hidden;
+ background:linear-gradient(180deg,#5DB4FF 0%,#A8DCFF 100%)}
+.wx-sun{width:78px;height:78px;flex:none;animation:bob 3.2s ease-in-out infinite}
+.wx-sun .rays{transform-origin:50px 50px;animation:spin 14s linear infinite}
+.wx-txt{position:relative;z-index:1}
+.wx-live{display:inline-flex;align-items:center;gap:5px;background:#FF5C8A;color:#fff;font-size:11px;font-weight:700;border-radius:6px;padding:1px 8px;letter-spacing:.06em}
+.wx-live::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.2s steps(2) infinite}
+.wx-txt h2{font-family:"Jua",var(--ui);font-weight:400;font-size:25px;color:#1E3A6E;margin:6px 0 0;line-height:1.15}
+.cloud{position:absolute;background:#fff;border-radius:999px;opacity:.9}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud.c1{width:62px;height:20px;right:22px;top:22px;animation:drift 6s ease-in-out infinite}
+.cloud.c1::before{width:28px;height:28px;left:10px;top:-14px}.cloud.c1::after{width:20px;height:20px;left:32px;top:-9px}
+.cloud.c2{width:44px;height:14px;right:70px;bottom:16px;opacity:.75;animation:drift 7s ease-in-out infinite reverse}
+.cloud.c2::before{width:20px;height:20px;left:8px;top:-10px}.cloud.c2::after{width:14px;height:14px;left:22px;top:-6px}
+.wx-stats{display:flex;gap:8px;flex-wrap:wrap;padding:14px 20px 0}
+.wx-stats span{background:#F2F9FF;border:1.5px solid #CFE8FF;color:#2A5A9E;border-radius:999px;padding:3px 12px;font-size:13px;font-weight:600}
+.wx-stats b{color:#FF5C8A}
+.wx-body{padding:16px 20px 20px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.wx-sun,.wx-sun .rays,.cloud,.wx-live::before{animation:none}}
+.to{font-family:var(--hand);font-size:24px;font-weight:400;margin:0 0 12px;position:relative}
+label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;position:relative}
+input,textarea{position:relative;width:100%;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;outline:none}
+input:focus,textarea:focus{border-color:#5DB4FF}
+textarea{min-height:140px;resize:vertical;font-family:var(--hand);font-size:19px;line-height:1.6;
+ background:repeating-linear-gradient(#fff 0 29px,#E3F1FF 29px 30px);background-attachment:local}
+.field{margin-bottom:14px}
+.row{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.sw{display:flex;gap:10px;align-items:center}
+.sw span{font-size:13px;color:var(--muted)}
+.sw button{width:34px;height:34px;border-radius:50%;border:2px solid #fff;cursor:pointer;box-shadow:0 0 0 1.5px var(--line);font-size:16px;line-height:1;padding:0;display:flex;align-items:center;justify-content:center}
+.sw button[aria-checked=true]{box-shadow:0 0 0 2.5px #1E3A6E;transform:scale(1.08)}
+.btn{border:0;border-radius:999px;padding:11px 22px;font-family:"Jua",var(--ui);font-size:17px;color:#7A4A00;cursor:pointer;
+ background:linear-gradient(180deg,#FFE88A,#FFC93C);box-shadow:0 4px 0 #E8A920,0 8px 16px rgba(255,201,77,.35);transition:transform .1s}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #E8A920}
+.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+.btn:focus-visible,.sw button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.status{position:relative;font-size:13px;color:var(--muted);min-height:1.2em;margin:10px 0 0}
+.status.err{color:var(--danger)}
+/* 내가 보낸 축하 = 날씨 카드 */
+.mine{margin-top:36px}
+.mine h2{font-family:"Jua",var(--ui);font-weight:400;font-size:18px;color:#1E3A6E;text-align:center;margin:0 0 14px}
+.wcard{background:#fff;border-radius:22px;overflow:hidden;margin-bottom:16px;box-shadow:0 10px 24px rgba(30,58,110,.16)}
+.wcard .band{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:var(--c)}
+.wcard .icon{font-size:24px;line-height:1}
+.wcard .label{font-family:"Jua",var(--ui);font-size:15px;color:rgba(30,58,110,.85)}
+.wcard p{margin:0;padding:14px 18px 6px;font-family:var(--hand);font-size:18px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.wcard .from{font-family:var(--hand);font-size:17px;text-align:right;padding:0 18px 14px;color:#2A5A9E}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><i class="bg-cloud a"></i><i class="bg-cloud b"></i></div>
+<div class="wrap">
+  <header>
+    <div class="date">2011.12.06 데뷔</div>
+    <h1>윤소호<small>배우님의 데뷔 15주년을 축하합니다!</small></h1>
+    <p class="sub">데뷔 15주년을 맞은 배우님께 축하의 한마디를 작성해주세요.<br>내가 쓴 메시지는 나와 윤소호만 볼 수 있어요.</p>
+  </header>
+
+  <div class="letter">
+    <div class="wx">
+      <svg class="wx-sun" viewBox="0 0 100 100" aria-hidden="true">
+        <g class="rays" stroke="#FFB627" stroke-width="6" stroke-linecap="round">
+          <line x1="50" y1="4" x2="50" y2="16"/><line x1="50" y1="84" x2="50" y2="96"/>
+          <line x1="4" y1="50" x2="16" y2="50"/><line x1="84" y1="50" x2="96" y2="50"/>
+          <line x1="17" y1="17" x2="25" y2="25"/><line x1="75" y1="75" x2="83" y2="83"/>
+          <line x1="83" y1="17" x2="75" y2="25"/><line x1="25" y1="75" x2="17" y2="83"/>
+        </g>
+        <circle cx="50" cy="50" r="28" fill="#FFD84D"/>
+        <circle cx="40" cy="47" r="3.6" fill="#3B2A1A"/><circle cx="60" cy="47" r="3.6" fill="#3B2A1A"/>
+        <ellipse cx="34" cy="56" rx="5" ry="3.2" fill="#FF8FB1" opacity=".8"/><ellipse cx="66" cy="56" rx="5" ry="3.2" fill="#FF8FB1" opacity=".8"/>
+        <path d="M43 57 Q50 64 57 57" fill="none" stroke="#3B2A1A" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="wx-txt">
+        <span class="wx-live">LIVE</span>
+        <h2>오늘의 축하 예보</h2>
+      </div>
+      <i class="cloud c1" aria-hidden="true"></i><i class="cloud c2" aria-hidden="true"></i>
+    </div>
+    <div class="wx-stats">
+      <span>축하 확률 <b>100%</b></span><span>설렘 지수 <b>15°</b></span><span>하루 종일 맑음 ☀️</span>
+    </div>
+    <div class="wx-body">
+      <p class="to">To. 윤소호</p>
+      <div class="field"><label for="name">보내는 사람</label><input id="name" maxlength="20" placeholder="이름 또는 아이디"></div>
+      <div class="field"><label for="msg">축하 메시지</label><textarea id="msg" maxlength="500" placeholder="데뷔 15주년 진심으로 축하드려요!"></textarea></div>
+      <div class="row">
+        <div class="sw" id="sw" role="radiogroup" aria-label="오늘의 날씨"><span>오늘의 날씨</span></div>
+        <button class="btn" id="save" disabled>축하 보내기 ☀️</button>
+      </div>
+      <p class="status" id="status" role="status"></p>
+    </div>
+  </div>
+
+  <div class="mine" id="mine" hidden><h2>내가 보낸 축하 예보</h2><div id="list"></div></div>
+</div>
+<script>
+// ★ Apps Script 웹 앱 주소(…/exec)를 여기에 붙여넣어 주세요
+const API_URL='https://script.google.com/macros/s/AKfycbxHqEIvh9UbueZl_uJGhxX6EgUtugUyIBgtP6zxJ80SA_SYaLMkSfETgSjtgvy94bMl_A/exec';
+
+const C={gold:'var(--gold)',pink:'var(--pink)',sky:'var(--sky)',lilac:'var(--lilac)'};
+const NAMES={gold:'맑음',pink:'무지개',sky:'시원한 가을 날씨',lilac:'별빛 반짝'};
+const W={gold:'☀️',pink:'🌈',sky:'⛅',lilac:'✨'};
+const $=id=>document.getElementById(id);
+let color='gold', mine=[];
+const KEY='debut-cheer-mine';
+try{mine=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){mine=[]}
+
+Object.keys(C).forEach(k=>{const b=document.createElement('button');b.type='button';b.style.background=C[k];b.textContent=W[k];b.title=NAMES[k];
+  b.setAttribute('role','radio');b.setAttribute('aria-label',NAMES[k]);b.dataset.c=k;b.onclick=()=>pick(k);$('sw').appendChild(b)});
+function pick(k){color=k;document.querySelectorAll('#sw button').forEach(b=>b.setAttribute('aria-checked',b.dataset.c===k))}
+pick('gold');
+
+function check(){$('save').disabled=!($('name').value.trim()&&$('msg').value.trim())}
+$('name').oninput=check;$('msg').oninput=check;
+
+function renderMine(){
+  $('mine').hidden=!mine.length;$('list').textContent='';
+  mine.slice().reverse().forEach(m=>{
+    const k=C[m.color]?m.color:'gold';
+    const c=document.createElement('div');c.className='wcard';c.style.setProperty('--c',C[k]);
+    const band=document.createElement('div');band.className='band';
+    const ic=document.createElement('span');ic.className='icon';ic.textContent=W[k];
+    const lb=document.createElement('span');lb.className='label';lb.textContent=NAMES[k];
+    band.append(ic,lb);
+    const p=document.createElement('p');p.textContent=m.text;
+    const f=document.createElement('div');f.className='from';f.textContent='from. '+m.name;
+    c.append(band,p,f);$('list').appendChild(c);
+  });
+}
+renderMine();
+
+$('save').onclick=()=>{
+  const name=$('name').value.trim(), text=$('msg').value.trim();
+  $('save').disabled=true;$('status').className='status';$('status').textContent='보내는 중…';
+  fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name,text,color})})
+    .then(r=>r.json())
+    .then(res=>{
+      if(!res||!res.ok)throw new Error(res&&res.error||'');
+      mine.push({name,text,color});
+      try{localStorage.setItem(KEY,JSON.stringify(mine))}catch(e){}
+      $('msg').value='';check();renderMine();
+      $('status').textContent='축하 메시지를 작성했습니다! 다시 한번 배우님의 데뷔일을 축하해주세요!';
+    })
+    .catch(err=>{
+      $('status').className='status err';
+      $('status').textContent=(err&&err.message)||'보내지 못했어요. 잠시 후 다시 시도해 주세요.';
+      check();
+    });
+};
+</script>
+</body>
+</html>

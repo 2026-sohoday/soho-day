@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>윤소호 축하 예보</title>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Stylish&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1E3A6E;--gold:#FFD84D;--pink:#FF9EC2;--sky:#8FD3FF;--lilac:#C7B3FF;
+ --ui:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;
+ --hand:"Stylish","Apple SD Gothic Neo",sans-serif;--cute:"Jua","Apple SD Gothic Neo",sans-serif;--display:"Black Han Sans","Apple SD Gothic Neo",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--ui);overflow-x:hidden;
+ background:linear-gradient(180deg,#6EC1FF 0%,#A9DCFF 38%,#E4F4FF 100%) fixed}
+/* 배경 구름 */
+.sky{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bg-cloud{position:absolute;background:#fff;border-radius:999px;opacity:.75;animation:float 18s ease-in-out infinite}
+.bg-cloud::before,.bg-cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.bg-cloud.a{width:180px;height:52px;left:-30px;top:120px}
+.bg-cloud.a::before{width:80px;height:80px;left:30px;top:-40px}.bg-cloud.a::after{width:56px;height:56px;left:95px;top:-26px}
+.bg-cloud.b{width:140px;height:42px;right:-20px;top:260px;opacity:.6;animation-duration:22s;animation-direction:reverse}
+.bg-cloud.b::before{width:62px;height:62px;left:22px;top:-30px}.bg-cloud.b::after{width:44px;height:44px;left:72px;top:-20px}
+.bg-cloud.c{width:120px;height:36px;left:12%;bottom:12%;opacity:.55;animation-duration:26s}
+.bg-cloud.c::before{width:52px;height:52px;left:18px;top:-26px}.bg-cloud.c::after{width:38px;height:38px;left:60px;top:-17px}
+@keyframes float{0%,100%{transform:translateX(0)}50%{transform:translateX(40px)}}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 20px 80px}
+header{text-align:center;margin-bottom:40px}
+.sun{width:110px;height:110px;margin:0 auto 6px;display:block;animation:bob 3.2s ease-in-out infinite}
+.sun .rays{transform-origin:50px 50px;animation:spin 16s linear infinite}
+.date{display:inline-block;font-size:14px;font-weight:600;color:#2A5A9E;background:rgba(255,255,255,.8);border:1.5px solid #CFE8FF;border-radius:999px;padding:3px 14px;margin-left:6px}
+.live{display:inline-flex;align-items:center;gap:6px;background:#FF5C8A;color:#fff;font-size:12px;font-weight:700;border-radius:7px;padding:2px 10px;letter-spacing:.06em}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;animation:blink 1.2s steps(2) infinite}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(56px,15vw,120px);line-height:1.02;margin:14px 0 0;text-shadow:0 3px 0 rgba(255,255,255,.7)}
+h1 small{display:block;font-family:var(--cute);font-size:.3em;margin-top:10px;color:#2A5A9E}
+.stats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px}
+.stats span{background:rgba(255,255,255,.85);border:1.5px solid #CFE8FF;color:#2A5A9E;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:600}
+.stats b{color:#FF5C8A}
+/* 축하 예보 카드들 */
+.board{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:22px}
+.card{width:min(100%,300px);background:#fff;border-radius:22px;overflow:hidden;
+ box-shadow:0 10px 24px rgba(30,58,110,.16);transform:rotate(var(--r));opacity:0;animation:pop .5s cubic-bezier(.2,1.4,.4,1) forwards;animation-delay:var(--d)}
+.card .band{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--c)}
+.card .icon{font-size:26px;line-height:1}
+.card .label{font-family:var(--cute);font-size:15px;color:rgba(30,58,110,.85)}
+.card p{margin:0;padding:16px 18px 20px;font-family:var(--hand);font-size:19px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.9) rotate(var(--r))}to{opacity:1;transform:rotate(var(--r))}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:0}}
+.loading{font-family:var(--cute);font-size:20px;color:#2A5A9E;padding:40px 0;text-align:center;width:100%;animation:breathe 1.6s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.45}}
+.empty{font-family:var(--cute);font-size:22px;color:#2A5A9E;padding:40px 0;text-align:center;width:100%}
+/* 처음 열 때 한 번: 반짝이 비 */
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.confetti i{position:absolute;top:-24px;font-style:normal;font-size:18px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.card{animation:none;opacity:1}.sun,.sun .rays,.bg-cloud,.live::before{animation:none}.confetti{display:none}}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><i class="bg-cloud a"></i><i class="bg-cloud b"></i><i class="bg-cloud c"></i></div>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+<div class="wrap">
+  <header>
+    <svg class="sun" viewBox="0 0 100 100" aria-hidden="true">
+      <g class="rays" stroke="#FFB627" stroke-width="6" stroke-linecap="round">
+        <line x1="50" y1="4" x2="50" y2="16"/><line x1="50" y1="84" x2="50" y2="96"/>
+        <line x1="4" y1="50" x2="16" y2="50"/><line x1="84" y1="50" x2="96" y2="50"/>
+        <line x1="17" y1="17" x2="25" y2="25"/><line x1="75" y1="75" x2="83" y2="83"/>
+        <line x1="83" y1="17" x2="75" y2="25"/><line x1="25" y1="75" x2="17" y2="83"/>
+      </g>
+      <circle cx="50" cy="50" r="28" fill="#FFD84D"/>
+      <circle cx="40" cy="47" r="3.6" fill="#3B2A1A"/><circle cx="60" cy="47" r="3.6" fill="#3B2A1A"/>
+      <ellipse cx="34" cy="56" rx="5" ry="3.2" fill="#FF8FB1" opacity=".8"/><ellipse cx="66" cy="56" rx="5" ry="3.2" fill="#FF8FB1" opacity=".8"/>
+      <path d="M43 57 Q50 64 57 57" fill="none" stroke="#3B2A1A" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <span class="live">LIVE 축하 예보</span><span class="date">2011.12.06 데뷔</span>
+    <h1>윤소호<small>배우님의 데뷔 15주년을 축하합니다!</small></h1>
+    <div class="stats" id="stats"></div>
+  </header>
+  <div class="board" id="board"></div>
+</div>
+<script>
+const W={gold:['☀️','맑음'],pink:['🌈','무지개'],sky:['⛅','시원한 가을 날씨'],lilac:['✨','별빛 반짝']};
+const C={gold:'var(--gold)',pink:'var(--pink)',sky:'var(--sky)',lilac:'var(--lilac)'};
+
+function sparkle(){
+  const box=document.getElementById('confetti'), em=['✨','⭐','💛','🌟'];
+  for(let i=0;i<40;i++){
+    const c=document.createElement('i');c.textContent=em[i%em.length];
+    c.style.left=Math.random()*100+'vw';
+    c.style.animationDuration=(3+Math.random()*2.5)+'s';
+    c.style.animationDelay=(Math.random()*1)+'s';
+    box.appendChild(c);
+  }
+  setTimeout(()=>box.remove(),7000);
+}
+
+// ★ Apps Script 웹 앱 주소(…/exec)를 여기에 붙여넣어 주세요
+const API_URL='https://script.google.com/macros/s/AKfycbxHqEIvh9UbueZl_uJGhxX6EgUtugUyIBgtP6zxJ80SA_SYaLMkSfETgSjtgvy94bMl_A/exec';
+
+const board=document.getElementById('board');
+const stats=document.getElementById('stats');
+function chip(html){const s=document.createElement('span');s.innerHTML=html;stats.appendChild(s)}
+chip('축하 확률 <b>100%</b>');chip('하루 종일 맑음 ☀️');
+function say(cls,text){board.textContent='';const m=document.createElement('div');m.className=cls;m.textContent=text;board.appendChild(m)}
+
+function render(list){
+  board.textContent='';
+  if(!list.length){say('empty','아직 도착한 축하가 없어요.');return}
+  list.forEach((it,i)=>{
+    const w=W[it.color]||W.gold;
+    const card=document.createElement('div');card.className='card';
+    card.style.setProperty('--c',C[it.color]||C.gold);
+    card.style.setProperty('--r',(((i*37)%7)-3)*0.6+'deg');
+    card.style.setProperty('--d',Math.min(0.1+i*0.07,2.2)+'s');
+    const band=document.createElement('div');band.className='band';
+    const ic=document.createElement('span');ic.className='icon';ic.textContent=w[0];
+    const lb=document.createElement('span');lb.className='label';lb.textContent=w[1];
+    band.append(ic,lb);
+    const p=document.createElement('p');p.textContent=it.text;
+    card.append(band,p);board.appendChild(card);
+  });
+  sparkle();
+}
+
+const key=new URLSearchParams(location.search).get('view')||'';
+if(!key){
+  say('empty','이 페이지는 축하받는 분만 볼 수 있어요.');
+}else{
+  say('loading','축하 예보를 불러오는 중이에요 ☁️');
+  fetch(API_URL+'?action=list&key='+encodeURIComponent(key))
+    .then(r=>r.json())
+    .then(res=>{
+      if(!res||!res.ok){say('empty',res&&res.error||'불러오지 못했어요.');return}
+      render(res.messages||[]);
+    })
+    .catch(()=>say('empty','불러오지 못했어요. 새로고침해 주세요.'));
+}
+</script>
+</body>
+</html>
