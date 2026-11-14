@@ -228,8 +228,7 @@ input:disabled::placeholder{color:#9AA6C0}
     <p class="done-msg" id="doneMsg" hidden></p>
 
   <section class="mapcard" aria-label="대학로 축하 기상도">
-    <div class="head"><h2># 대학로 축하 기상도</h2><span class="live">LIVE</span></div>
-    <div class="tabs"><span class="on">축하 날씨</span><span>설렘 지수</span><span>응원 강수량</span></div>
+    <div class="head"><h2>#Happy_SOHO_Day</h2><span class="live">LIVE</span></div>
     <div class="map" id="map">
       <svg viewBox="0 0 400 533" preserveAspectRatio="none" aria-hidden="true">
       <defs><radialGradient id="glow" cx="55%" cy="45%" r="75%"><stop offset="0" stop-color="#2E64B0"/><stop offset="1" stop-color="#0F2B5E"/></radialGradient>
@@ -418,12 +417,12 @@ const PROFILE_IMG='';
 
 // ★ 공연장 정보. notice가 있는 곳은 축하 대신 공지 링크로 이동해요.
 const V={
-  nol:{name:'NOL 서경스퀘어',work:'아가사',img:'img/agatha.jpg',x:48.5,y:10.4,side:'L',link:''},
+  nol:{name:'NOL 서경스퀘어',work:'아가사',img:'agatha.jpg',x:48.5,y:10.4,side:'L',link:''},
   podoal:{name:'포도알 1·3호점',x:59.6,y:25.7,side:'R',link:'',notice:'https://x.com/soho_day?s=11&t=-U_KYkoInMCjbY6BHJi4lw'},
-  artone:{name:'YES24 아트원',work:'브로크백마운틴',img:'img/broke.jpg',x:68.9,y:44.9,side:'R',link:''},
-  hongik:{name:'홍익대 대학로 아트센터',work:'팬레터',img:'img/fanletter.jpg',x:45.0,y:64.6,side:'L',link:''},
-  hongik2:{name:'홍익대 대학로 아트센터',work:'곤투모로우',img:'img/gone.jpg',x:45.0,y:64.6,side:'L',link:'',same:'hongik'},
-  doosan:{name:'두산아트센터 연강홀',work:'렛미플라이',img:'img/letme.jpg',x:35.4,y:86.8,side:'R',link:''}
+  artone:{name:'YES24 아트원',work:'브로크백마운틴',img:'broke.jpg',x:68.9,y:44.9,side:'R',link:''},
+  hongik:{name:'홍익대 대학로 아트센터',work:'팬레터',img:'fanletter.jpg',x:45.0,y:64.6,side:'L',link:''},
+  hongik2:{name:'홍익대 대학로 아트센터',work:'곤투모로우',img:'gone.jpg',x:45.0,y:64.6,side:'L',link:'',same:'hongik'},
+  doosan:{name:'두산아트센터 연강홀',work:'렛미플라이',img:'letme.jpg',x:35.4,y:86.8,side:'R',link:''}
 };
 // ★ 2026 필모. venue는 지도 공연장 키(podoal/nol/hongik/doosan), link는 작품 페이지 주소예요.
 const FILMO=[
