@@ -155,7 +155,7 @@ input:disabled::placeholder{color:#9AA6C0}
 .venue.notice .cnt{font-size:13px;color:#4F7BE0}
 .venue.notice .pin{background:#4F7BE0}
 .venue:focus-visible{outline:none}.venue:focus-visible .tile{outline:3px solid #FFD84D;outline-offset:2px}
-.bubble{position:absolute;transform:translate(-50%,-50%) scale(0);background:#fff;border-radius:12px;padding:1px 5px;font-size:14px;line-height:1.2;box-shadow:0 3px 8px rgba(0,0,0,.3);animation:pop .4s cubic-bezier(.2,1.5,.4,1) forwards;pointer-events:none;z-index:2}
+.bubble{position:absolute;transform:translate(-50%,-50%) scale(0);background:#fff;border-radius:12px;padding:1px 4px;font-size:13px;line-height:1.2;box-shadow:0 3px 8px rgba(0,0,0,.3);animation:pop .4s cubic-bezier(.2,1.5,.4,1) forwards;pointer-events:none;z-index:2}
 .bubble::after{content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);border:4px solid transparent;border-bottom:0;border-top-color:#fff}
 .bubble.me{box-shadow:0 0 0 2px #FF5C8A,0 3px 8px rgba(0,0,0,.3);z-index:4}
 @keyframes pop{to{transform:translate(-50%,-50%) scale(1)}}
@@ -185,13 +185,14 @@ input:disabled::placeholder{color:#9AA6C0}
 .filmo{display:grid;gap:12px;margin-bottom:18px}
 .film{display:flex;align-items:stretch;background:#fff;border-radius:20px;overflow:hidden;text-decoration:none;color:#1E3A6E;box-shadow:0 10px 24px rgba(30,58,110,.14);transition:transform .15s}
 .film:hover{transform:translateY(-2px)}
-.film .fw{width:74px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--c)}
-.film .fw b{font-size:28px;line-height:1}
-.film .fw small{font-family:"Jua",var(--ui);font-size:12px;color:rgba(30,58,110,.75)}
+.film .fw{width:88px;flex:none;align-self:stretch;background:var(--c) center/cover no-repeat;position:relative}
+.film .fw b{position:absolute;right:4px;bottom:4px;font-size:15px;line-height:1;background:rgba(255,255,255,.9);border-radius:999px;padding:3px 4px}
 .film .fi{flex:1;padding:12px 14px;min-width:0}
 .film .ft{font-family:"Jua",var(--ui);font-size:20px;margin:0;line-height:1.25}
 .film .fm{font-size:12.5px;color:#4A5A80;margin:3px 0 0;line-height:1.5}
-.film .fl{display:inline-block;margin-top:5px;font-size:12px;font-weight:700;color:#4F7BE0}
+.film .fls{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.film .fl{display:inline-block;font-size:12px;font-weight:700;color:#4F7BE0;text-decoration:none;border:1.5px solid #CFE0FA;border-radius:999px;padding:2px 9px;background:#fff}
+.film .fl:hover{background:#EEF4FF}
 .picked{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#F4FAFF;border:1.5px solid #CFE8FF;border-radius:14px;padding:10px 12px;margin:0 0 16px}
 .picked b{font-family:"Jua",var(--ui);font-weight:400;font-size:16px;color:#1E3A6E}
 .picked button{flex:none;white-space:nowrap;border:0;background:#fff;border:1.5px solid #CFE8FF;color:#2A5A9E;border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
@@ -199,9 +200,15 @@ input:disabled::placeholder{color:#9AA6C0}
 .write-note{text-align:center;font-size:13.5px;color:#3B6AA8;margin:0 0 4px}
 .write-note + .notice{display:block;text-align:center;margin:8px auto 16px;width:max-content;max-width:100%}
 .venue .tile.photo{padding:2px;border-radius:50%}
-.venue .tile.photo .icon{width:38px;height:38px;font-size:13px}
+.venue .tile.photo .icon{width:48px;height:48px;font-size:13px}
 .venue .icon.has-img{border:2px solid #FFD84D;background:#fff;overflow:hidden;padding:0}
 .venue .icon.has-img img{width:100%;height:100%;object-fit:cover;display:block}
+.banner{margin:0 0 22px;border-radius:24px;overflow:hidden;box-shadow:0 16px 40px rgba(30,58,110,.25);background:#fff}
+.banner img{display:block;width:100%;height:auto}
+.venue .name{background:rgba(15,43,94,.82);padding:1px 7px;border-radius:7px;position:relative;z-index:1}
+.wbtn .wname{background:rgba(15,43,94,.82);padding:0 5px;border-radius:6px}
+.venue .tag{z-index:5}
+.venue .tile.photo .icon{width:48px;height:48px}
 </style>
 </head>
 <body>
@@ -215,6 +222,7 @@ input:disabled::placeholder{color:#9AA6C0}
 
   <!-- ① 2026 필모 -->
   <section class="step" id="s1" aria-labelledby="t1">
+    <figure class="banner" id="banner" hidden><img id="bannerImg" alt="윤소호 데뷔 15주년 축하 배너"></figure>
     <h2 class="step-title" id="t1">2026 윤소호 필모 예보 🎭</h2>
     <p class="step-sub">올해 배우님이 함께한 무대예요</p>
     <div class="filmo" id="filmo"></div>
@@ -264,7 +272,7 @@ input:disabled::placeholder{color:#9AA6C0}
     </div>
     <div class="maplegend" id="legend"></div>
     <div class="links" id="links" hidden></div>
-    <p class="caption">공연장을 누르면 그곳에 축하 예보를 띄울 수 있어요 · 📢 포도알은 공지 보기<br>지도에는 날씨 아이콘만 보이고, 메시지 내용은 보이지 않아요</p>
+    <p class="caption">공연장을 누르면 그곳에 축하 예보를 띄울 수 있어요 · 📢 포도알은 축하현수막 보기<br>지도에는 날씨 아이콘만 보이고, 메시지 내용은 보이지 않아요</p>
   </section>
   <button class="cta ghost" id="moreBtn" type="button" hidden>축하 예보 하나 더 보내기 ✉️</button>
   <div class="mine" id="mine" hidden><h2>내가 보낸 축하 예보</h2><div id="list"></div></div>
@@ -425,18 +433,19 @@ const V={
   doosan:{name:'두산아트센터 연강홀',work:'렛미플라이',img:'letme.jpg',x:35.4,y:86.8,side:'R',link:''}
 };
 // ★ 2026 필모. venue는 지도 공연장 키(podoal/nol/hongik/doosan), link는 작품 페이지 주소예요.
+// ★ 작품별 예매처 링크. links에 {label:'예매처 이름',url:'주소'}를 추가하면 버튼이 늘어나요.
 const FILMO=[
-  {title:'팬레터',venue:'hongik',period:'2026.03.17 – 06.07',link:'https://nol.yanolja.com/ticket/products/26001565',w:'gold'},
-  {title:'브로크백마운틴',venue:'artone',period:'2026.06.23 – 09.06',link:'',w:'pink'},
-  {title:'곤투모로우',venue:'hongik2',period:'2026.09.15 – 11.29',link:'https://nol.yanolja.com/ticket/products/26011520',w:'sky'},
-  {title:'렛미플라이',venue:'doosan',period:'2026.10.06 – 2027.01.03',link:'https://nol.yanolja.com/ticket/products/26012259',w:'lilac'},
-  {title:'아가사',venue:'nol',period:'2026.12.09 – 2027.02.28',link:'https://nol.yanolja.com/ticket/products/26015729',w:'snow'}
+  {title:'팬레터',venue:'hongik',period:'2026.03.17 – 06.07',w:'gold',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26001565'}]},
+  {title:'브로크백마운틴',venue:'artone',period:'2026.06.23 – 09.06',w:'pink',links:[{label:'YES24',url:'https://ticket.yes24.com/perf/58538'}]},
+  {title:'곤투모로우',venue:'hongik2',period:'2026.09.15 – 11.29',w:'sky',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26011520'}]},
+  {title:'렛미플라이',venue:'doosan',period:'2026.10.06 – 2027.01.03',w:'lilac',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26012259'},{label:'티켓링크',url:'https://www.ticketlink.co.kr/product/65165'},{label:'YES24',url:'https://ticket.yes24.com/Perf/59852'}]},
+  {title:'아가사',venue:'nol',period:'2026.12.09 – 2027.02.28',w:'snow',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26015729'},{label:'YES24',url:'https://ticket.yes24.com/Perf/60940'}]}
 ];
 const WN={gold:'봄',pink:'여름 무지개',sky:'가을',lilac:'겨울밤',snow:'첫눈'};
 let venue=null, mapData=[];
 
-// 말풍선은 공연장 이름표 반대쪽에 작게 모여요 (공연장마다 최근 8개까지)
-function bubbleSpot(v,i){const side=V[v].side==='L'?1:-1,a=(-70+((i*47)%140))*Math.PI/180,r=5+(i%3)*2.4;return [V[v].x+side*Math.cos(a)*r,V[v].y+Math.sin(a)*r*0.62];}
+// 말풍선은 공연장 핀 주변에 가깝게 모여요 (공연장마다 최근 8개까지)
+function bubbleSpot(v,i){const seed=(v.length*13+i*7)%10,a=(i*137.5+seed*11)*Math.PI/180,r=7.5+((i*3+seed)%4)*0.9;return [V[v].x+Math.cos(a)*r,V[v].y+Math.sin(a)*r*0.6];}
 function vlabel(k){const v=V[k];return v?v.name+(v.work?' · '+v.work:''):''}
 function drawMap(lastMine){
   const map=$('map');
@@ -456,8 +465,8 @@ function drawMap(lastMine){
   Object.entries(V).forEach(([k,v])=>{
     if(v.notice){
       const a=document.createElement('a');a.className='venue notice '+(v.side||'R');a.href=v.notice;a.target='_blank';a.rel='noopener';
-      a.style.left=v.x+'%';a.style.top=v.y+'%';a.setAttribute('aria-label',v.name+' 공지 보러 가기');
-      a.innerHTML='<span class="pin"></span><span class="tag"><span class="name"></span><span class="tile"><span class="icon">📢</span><span class="cnt">공지 보기</span></span></span>';
+      a.style.left=v.x+'%';a.style.top=v.y+'%';a.setAttribute('aria-label',v.name+' 축하현수막 보러 가기');
+      a.innerHTML='<span class="pin"></span><span class="tag"><span class="name"></span><span class="tile"><span class="icon">📢</span><span class="cnt">축하현수막</span></span></span>';
       a.querySelector('.name').textContent=v.name;map.appendChild(a);return;
     }
     if(v.same)return;
@@ -490,17 +499,26 @@ function pickVenue(k){
 Object.entries(V).forEach(([k,v])=>{
   if(v.link){const a=document.createElement('a');a.href=v.link;a.target='_blank';a.rel='noopener';a.textContent=v.name+' 작품 ↗';$('links').appendChild(a);$('links').hidden=false;}
 });
+// ★ 맨 위 축하 배너. 저장소에 15SOHO.jpg(또는 .png/.jpeg)를 올리면 자동으로 나와요.
+(function(){
+  const tries=['15SOHO.jpg','15SOHO.png','15SOHO.jpeg','15SOHO.JPG','15SOHO.PNG','15SOHO.JPEG'];let i=0;
+  const img=$('bannerImg');
+  img.onload=()=>{$('banner').hidden=false;};
+  img.onerror=()=>{i++;if(i<tries.length)img.src=tries[i];};
+  img.src=tries[0];
+})();
+
 // 필모 카드
 FILMO.forEach(f=>{
-  const el=document.createElement(f.link?'a':'div');el.className='film';
-  if(f.link){el.href=f.link;el.target='_blank';el.rel='noopener';}
+  const el=document.createElement('div');el.className='film';
   el.style.setProperty('--c',C[f.w]||C.gold);
-  el.innerHTML='<span class="fw"><b></b><small></small></span><span class="fi"><p class="ft"></p><p class="fm"></p></span>';
-  el.querySelector('.fw b').textContent=W[f.w]||W.gold;el.querySelector('.fw small').textContent=WN[f.w]||'';
+  el.innerHTML='<span class="fw"><b></b></span><span class="fi"><p class="ft"></p><p class="fm"></p><span class="fls"></span></span>';
+  el.querySelector('.fw b').textContent=W[f.w]||W.gold;
+  const ph=V[f.venue]&&V[f.venue].img; if(ph) el.querySelector('.fw').style.backgroundImage='url("'+ph+'")';
   el.querySelector('.ft').textContent=f.title;
   el.querySelector('.fm').textContent=(V[f.venue]?'📍 '+V[f.venue].name+'\n':'')+f.period;
   el.querySelector('.fm').style.whiteSpace='pre-line';
-  if(f.link){const l=document.createElement('span');l.className='fl';l.textContent='작품 보기 ↗';el.querySelector('.fi').appendChild(l);}
+  (f.links||[]).filter(l=>l.url).forEach(l=>{const a=document.createElement('a');a.className='fl';a.href=l.url;a.target='_blank';a.rel='noopener';a.textContent=l.label+' ↗';el.querySelector('.fls').appendChild(a);});
   $('filmo').appendChild(el);
 });
 
