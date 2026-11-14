@@ -114,6 +114,94 @@ input:disabled::placeholder{color:#9AA6C0}
 .wcard p{margin:0;padding:14px 18px 6px;font-family:var(--hand);font-size:18px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
 .wcard p:last-child{padding-bottom:16px}
 .wcard .from{font-family:var(--hand);font-size:17px;text-align:right;padding:0 18px 14px;color:#2A5A9E}
+/* 기상도 카드 */
+.mapcard{background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 16px 40px rgba(30,58,110,.2);margin-bottom:22px}
+.mapcard .head{display:flex;align-items:center;gap:8px;padding:14px 16px}
+.mapcard .head h2{font-family:"Jua",var(--ui);font-weight:400;font-size:21px;margin:0;color:#1E3A6E}
+.mapcard .live{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:#FF5C8A;color:#fff;font-size:11px;font-weight:700;border-radius:6px;padding:1px 8px}
+.mapcard .live::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.2s steps(2) infinite}
+.tabs{display:flex;background:#EEF3FB;border-top:1px solid #DCE6F5}
+.tabs span{flex:1;text-align:center;font-size:12.5px;font-weight:600;color:#6E7EA3;padding:8px 0}
+.tabs span.on{background:#4F7BE0;color:#fff}
+/* 공연장 선택 */
+.q{font-family:"Jua",var(--ui);font-size:16px;margin:0 0 8px;color:#1E3A6E}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.chip{border:1.5px solid #CFE8FF;background:#F4FAFF;color:#2A5A9E;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.chip[aria-pressed=true]{background:#1E3A6E;color:#fff;border-color:#1E3A6E}
+.chip:focus-visible{outline:3px solid #5DB4FF;outline-offset:2px}
+.wcard .venue-tag{font-size:12px;color:#3B6AA8;padding:0 18px;margin-top:-2px}
+/* 지도 */
+.map{position:relative;aspect-ratio:400/533;background:#143877;overflow:hidden;user-select:none}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.lbl{position:absolute;transform:translate(-50%,-50%);font-size:10.5px;color:rgba(255,255,255,.72);white-space:nowrap;pointer-events:none;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.lbl.road{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.3em}
+.venue{position:absolute;width:0;height:0;background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit;z-index:3}
+.venue .pin{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#FFD84D;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.45)}
+.venue .tag{position:absolute;top:0;transform:translateY(-38%);display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.venue.L .tag{right:14px;align-items:flex-end}.venue.R .tag{left:14px}
+.venue .tag::before{content:"";position:absolute;top:50%;width:8px;border-top:1.5px solid rgba(255,255,255,.7)}
+.venue.L .tag::before{right:-9px}.venue.R .tag::before{left:-9px}
+.venue .name{font-family:var(--cute);font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8);white-space:nowrap;line-height:1.2}
+.venue .tile{display:flex;align-items:center;gap:4px;background:#fff;border-radius:999px;padding:2px 8px 2px 2px;box-shadow:0 3px 0 #C9D6EE,0 6px 12px rgba(0,0,0,.35);transition:transform .15s,box-shadow .15s}
+.venue .icon{width:30px;height:30px;border-radius:50%;background:#FFE8A3;display:flex;align-items:center;justify-content:center;font-family:var(--cute);font-size:12px;color:#7A4A00;border:2px dashed #E8A920}
+.venue .cnt{font-family:var(--cute);font-size:14px;color:#C23A6A;white-space:nowrap}
+.venue .works{display:flex;gap:6px;align-items:flex-start}
+.wbtn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;padding:0;cursor:pointer;font:inherit}
+.wbtn .wname{font-family:var(--cute);font-size:10.5px;color:#FFE27A;text-shadow:0 1px 3px rgba(0,0,0,.8);white-space:nowrap}
+.wbtn[aria-pressed=true] .tile{transform:scale(1.08);box-shadow:0 0 0 3px #FFD84D,0 8px 16px rgba(0,0,0,.4)}
+.wbtn:focus-visible{outline:none}.wbtn:focus-visible .tile{outline:3px solid #FFD84D;outline-offset:2px}
+.venue.notice{text-decoration:none}
+.venue.notice .icon{background:#E8F1FF;border-color:#4F7BE0;font-size:13px}
+.venue.notice .cnt{font-size:13px;color:#4F7BE0}
+.venue.notice .pin{background:#4F7BE0}
+.venue:focus-visible{outline:none}.venue:focus-visible .tile{outline:3px solid #FFD84D;outline-offset:2px}
+.bubble{position:absolute;transform:translate(-50%,-50%) scale(0);background:#fff;border-radius:12px;padding:1px 5px;font-size:14px;line-height:1.2;box-shadow:0 3px 8px rgba(0,0,0,.3);animation:pop .4s cubic-bezier(.2,1.5,.4,1) forwards;pointer-events:none;z-index:2}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);border:4px solid transparent;border-bottom:0;border-top-color:#fff}
+.bubble.me{box-shadow:0 0 0 2px #FF5C8A,0 3px 8px rgba(0,0,0,.3);z-index:4}
+@keyframes pop{to{transform:translate(-50%,-50%) scale(1)}}
+.maplegend{display:flex;flex-wrap:wrap;gap:6px;padding:12px 14px 6px;justify-content:center}
+.maplegend span{background:#F2F9FF;border:1.5px solid #CFE8FF;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;color:#2A5A9E}
+.maplegend b{color:#FF5C8A}
+.links{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:6px 14px 14px}
+.links a{font-size:12px;font-weight:600;color:#4F7BE0;text-decoration:none;border:1.5px solid #CFE0FA;border-radius:999px;padding:3px 10px}
+.caption{font-size:11.5px;color:#6E7EA3;text-align:center;margin:0;padding:0 14px 14px}
+@media (prefers-reduced-motion:reduce){.bubble{animation:none;transform:translate(-50%,-50%) scale(1)}.venue .pin,.mapcard .live::before{animation:none}}
+/* 단계 진행 */
+.progress{display:flex;justify-content:center;gap:6px;margin:0 0 18px;padding:0;list-style:none}
+.progress li{font-family:"Jua",var(--ui);font-size:13px;color:#6E8BB8;background:rgba(255,255,255,.55);border-radius:999px;padding:4px 11px}
+.progress li.on{background:#1E3A6E;color:#fff}
+.progress li.done{color:#1E3A6E;background:rgba(255,255,255,.85)}
+.step[hidden],.cta[hidden],.progress[hidden]{display:none!important}
+.backbar{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}
+.back{border:0;background:rgba(255,255,255,.75);color:#1E3A6E;border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.back:focus-visible,.cta:focus-visible,.film:focus-visible{outline:3px solid #5DB4FF;outline-offset:2px}
+.step-title{font-family:"Jua",var(--ui);font-weight:400;font-size:22px;text-align:center;margin:0 0 14px;color:#1E3A6E}
+.step-sub{text-align:center;font-size:14px;color:#3B6AA8;margin:-6px 0 16px}
+.cta{display:block;width:100%;border:0;border-radius:18px;padding:16px;font-family:"Jua",var(--ui);font-size:19px;color:#7A4A00;cursor:pointer;
+ background:linear-gradient(180deg,#FFE88A,#FFC93C);box-shadow:0 5px 0 #E8A920,0 10px 20px rgba(255,201,77,.35);margin-top:8px}
+.cta:active{transform:translateY(2px);box-shadow:0 3px 0 #E8A920}
+.cta.ghost{background:#fff;color:#1E3A6E;box-shadow:0 5px 0 #C9D6EE}
+/* 2026 필모 */
+.filmo{display:grid;gap:12px;margin-bottom:18px}
+.film{display:flex;align-items:stretch;background:#fff;border-radius:20px;overflow:hidden;text-decoration:none;color:#1E3A6E;box-shadow:0 10px 24px rgba(30,58,110,.14);transition:transform .15s}
+.film:hover{transform:translateY(-2px)}
+.film .fw{width:74px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--c)}
+.film .fw b{font-size:28px;line-height:1}
+.film .fw small{font-family:"Jua",var(--ui);font-size:12px;color:rgba(30,58,110,.75)}
+.film .fi{flex:1;padding:12px 14px;min-width:0}
+.film .ft{font-family:"Jua",var(--ui);font-size:20px;margin:0;line-height:1.25}
+.film .fm{font-size:12.5px;color:#4A5A80;margin:3px 0 0;line-height:1.5}
+.film .fl{display:inline-block;margin-top:5px;font-size:12px;font-weight:700;color:#4F7BE0}
+.picked{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#F4FAFF;border:1.5px solid #CFE8FF;border-radius:14px;padding:10px 12px;margin:0 0 16px}
+.picked b{font-family:"Jua",var(--ui);font-weight:400;font-size:16px;color:#1E3A6E}
+.picked button{flex:none;white-space:nowrap;border:0;background:#fff;border:1.5px solid #CFE8FF;color:#2A5A9E;border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.done-msg{text-align:center;font-family:"Jua",var(--ui);font-size:18px;color:#1E3A6E;margin:0 0 14px}
+.write-note{text-align:center;font-size:13.5px;color:#3B6AA8;margin:0 0 4px}
+.write-note + .notice{display:block;text-align:center;margin:8px auto 16px;width:max-content;max-width:100%}
+.venue .tile.photo{padding:2px;border-radius:50%}
+.venue .tile.photo .icon{width:38px;height:38px;font-size:13px}
+.venue .icon.has-img{border:2px solid #FFD84D;background:#fff;overflow:hidden;padding:0}
+.venue .icon.has-img img{width:100%;height:100%;object-fit:cover;display:block}
 </style>
 </head>
 <body>
@@ -122,9 +210,73 @@ input:disabled::placeholder{color:#9AA6C0}
   <header>
     <div class="date">2011.12.06 데뷔</div>
     <h1>윤소호<small>배우님의 데뷔 15주년을 축하합니다!</small></h1>
-    <p class="sub">데뷔 15주년을 맞은 배우님께 축하의 한마디를 작성해주세요.<br>내가 쓴 메시지는 나와 배우님만 볼 수 있어요.</p>
-    <p class="notice">※ 악의적인 내용, 비방·욕설, 광고 등 이벤트 취지에 맞지 않는 메시지는<br>운영진 확인 후 사전 안내 없이 삭제될 수 있어요.</p>
   </header>
+
+
+  <!-- ① 2026 필모 -->
+  <section class="step" id="s1" aria-labelledby="t1">
+    <h2 class="step-title" id="t1">2026 윤소호 필모 예보 🎭</h2>
+    <p class="step-sub">올해 배우님이 함께한 무대예요</p>
+    <div class="filmo" id="filmo"></div>
+    <button class="cta" id="goMap" type="button">축하 예보 보내러 가기 ☀️</button>
+  </section>
+
+  <!-- ②④ 기상도 -->
+  <section class="step" id="s2" aria-labelledby="t2" hidden>
+    <div class="backbar"><button class="back" type="button" data-go="1">← 필모 예보</button></div>
+    <h2 class="step-title" id="t2">어디에 축하 예보를 띄울까요?</h2>
+    <p class="done-msg" id="doneMsg" hidden></p>
+
+  <section class="mapcard" aria-label="대학로 축하 기상도">
+    <div class="head"><h2># 대학로 축하 기상도</h2><span class="live">LIVE</span></div>
+    <div class="tabs"><span class="on">축하 날씨</span><span>설렘 지수</span><span>응원 강수량</span></div>
+    <div class="map" id="map">
+      <svg viewBox="0 0 400 533" preserveAspectRatio="none" aria-hidden="true">
+      <defs><radialGradient id="glow" cx="55%" cy="45%" r="75%"><stop offset="0" stop-color="#2E64B0"/><stop offset="1" stop-color="#0F2B5E"/></radialGradient>
+      <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".8" fill="rgba(255,255,255,.08)"/></pattern></defs>
+      <rect width="400" height="533" fill="url(#glow)"/><rect width="400" height="533" fill="url(#dots)"/>
+      <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.08)">
+      <rect x="206.4" y="2.0" width="156.0" height="46.5" rx="6" />
+      <rect x="197.6" y="80.5" width="164.9" height="35.3" rx="6" />
+      <rect x="259.8" y="147.9" width="138.2" height="57.7" rx="6" />
+      <rect x="210.9" y="293.7" width="151.6" height="12.8" rx="6" />
+      <rect x="210.9" y="338.6" width="84.9" height="68.9" rx="6" />
+      <rect x="90.9" y="2.0" width="67.1" height="24.1" rx="6" />
+      <rect x="10.9" y="383.5" width="164.9" height="35.3" rx="6" />
+      <rect x="15.3" y="445.2" width="151.6" height="18.4" rx="6" />
+      <rect x="15.3" y="484.5" width="151.6" height="24.1" rx="6" />
+      <rect x="206.4" y="445.2" width="156.0" height="57.7" rx="6" />
+      <rect x="24.2" y="86.2" width="133.8" height="63.3" rx="6" />
+      <rect x="37.6" y="170.3" width="116.0" height="153.1" rx="6" fill="rgba(255,255,255,.1)"/>
+      </g>
+      <rect x="202.0" y="215.2" width="53.8" height="52.1" rx="6" fill="rgba(110,210,140,.5)"/>
+      <g stroke="rgba(255,255,255,.3)" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M177.8 95.4 L275.6 67.3 L364.4 16.8 L497.8 -28.1"/><path d="M186.7 168.3 L248.9 129.0 L320.0 106.6"/><path d="M191.1 218.8 L275.6 235.6 L373.3 207.6"/><path d="M195.6 269.3 L257.8 274.9"/><path d="M200.0 314.2 L342.2 325.4"/><path d="M173.3 39.3 L88.9 0.0"/><path d="M186.7 471.3 L17.8 471.3"/></g>
+      <g stroke="rgba(255,255,255,.7)" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M120.0 -84.2 L75.6 56.1 L17.8 252.5 L-4.4 426.4 L0.0 589.1"/><path d="M-168.9 437.6 L-4.4 426.4 L195.6 375.9 L320.0 426.4 L520.0 443.2"/><path d="M-168.9 533.0 L520.0 516.2"/></g>
+      <g stroke="rgba(255,255,255,.88)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M155.6 -84.2 L173.3 39.3 L182.2 129.0 L195.6 252.5 L200.0 291.7 L195.6 375.9 L191.1 443.2 L182.2 504.9 L182.2 589.1"/></g>
+      <circle cx="181.8" cy="130.7" r="6" fill="#00A5DE" stroke="#fff" stroke-width="2.5"/>
+      <circle cx="183.1" cy="505.5" r="6" fill="#0052A4" stroke="#fff" stroke-width="2.5"/>
+      </svg>
+      <span class="lbl" style="left:34.4%;top:24.5%">혜화역 ④</span>
+      <span class="lbl" style="left:50.7%;top:53.5%">마로니에공원</span>
+      <span class="lbl" style="left:23.3%;top:47.4%">서울대병원</span>
+      <span class="lbl" style="left:60.9%;top:72.9%">이화사거리</span>
+      <span class="lbl" style="left:26.8%;top:96.8%">종로5가역 ①</span>
+      <span class="lbl road" style="left:88.9%;top:76.9%">율곡로</span>
+    </div>
+    <div class="maplegend" id="legend"></div>
+    <div class="links" id="links" hidden></div>
+    <p class="caption">공연장을 누르면 그곳에 축하 예보를 띄울 수 있어요 · 📢 포도알은 공지 보기<br>지도에는 날씨 아이콘만 보이고, 메시지 내용은 보이지 않아요</p>
+  </section>
+  <button class="cta ghost" id="moreBtn" type="button" hidden>축하 예보 하나 더 보내기 ✉️</button>
+  <div class="mine" id="mine" hidden><h2>내가 보낸 축하 예보</h2><div id="list"></div></div>
+  </section>
+
+  <!-- ③ 작성 -->
+  <section class="step" id="s3" aria-labelledby="t3" hidden>
+    <div class="backbar"><button class="back" type="button" data-go="2">← 공연장 다시 고르기</button></div>
+    <p class="write-note">내가 쓴 메시지는 나와 배우님만 볼 수 있어요.</p>
+    <p class="notice">※ 악의적인 내용, 비방·욕설, 광고 등 이벤트 취지에 맞지 않는 메시지는<br>운영진 확인 후 사전 안내 없이 삭제될 수 있어요.</p>
+
 
   <div class="letter" id="open">
     <div class="wx">
@@ -151,6 +303,7 @@ input:disabled::placeholder{color:#9AA6C0}
     </div>
     <div class="wx-body">
       <p class="to">To. 윤소호</p>
+      <div class="picked"><b id="pickedName">📍 공연장</b><button type="button" data-go="2">바꾸기</button></div>
       <div class="field"><label for="name">트위터 아이디</label><input id="name" maxlength="20" placeholder="개인정보 수집에 동의하면 입력할 수 있어요" autocomplete="off" autocapitalize="off" spellcheck="false" disabled></div>
       <div class="consent">
         <label class="agree"><input type="checkbox" id="agree"><span><span class="req">[선택]</span> 개인정보 수집·이용에 동의합니다</span></label>
@@ -173,6 +326,8 @@ input:disabled::placeholder{color:#9AA6C0}
       <p class="status" id="status" role="status"></p>
     </div>
   </div>
+
+  </section>
 
   <div class="letter closed" id="closed" hidden>
     <div class="wx">
@@ -197,15 +352,19 @@ input:disabled::placeholder{color:#9AA6C0}
     </div>
   </div>
 
-  <div class="mine" id="mine" hidden><h2>내가 보낸 축하 예보</h2><div id="list"></div></div>
 </div>
 <script>
 // ★ Apps Script 웹 앱 주소(…/exec)를 여기에 붙여넣어 주세요
 // ★ 이벤트 종료 일시 (한국 시간). 이 시간이 지나면 쓰는 카드가 종료 안내로 바뀌어요.
 const END_AT=new Date('2026-12-06T23:59:59+09:00');
 function isClosed(){return Date.now()>END_AT.getTime()}
-function showClosed(){const o=document.getElementById('open'),c=document.getElementById('closed');if(o)o.hidden=true;if(c)c.hidden=false;}
-if(isClosed())showClosed();
+function showClosed(){
+  const c=document.getElementById('closed');if(!c||!c.hidden)return;
+  c.hidden=false;['s2','s3','progress'].forEach(id=>{const e=document.getElementById(id);if(e)e.hidden=true;});
+  const b=document.getElementById('goMap');if(b)b.hidden=true;
+  const s1=document.getElementById('s1');if(s1){s1.hidden=false;s1.after(c);}
+}
+if(isClosed())document.addEventListener('DOMContentLoaded',showClosed);
 setInterval(()=>{if(isClosed())showClosed()},30000);
 
 const API_URL='https://script.google.com/macros/s/AKfycbxHqEIvh9UbueZl_uJGhxX6EgUtugUyIBgtP6zxJ80SA_SYaLMkSfETgSjtgvy94bMl_A/exec';
@@ -225,7 +384,7 @@ pick('gold');
 
 function check(){
   const agreed=$('agree').checked;
-  $('save').disabled=!($('msg').value.trim()&&(!agreed||$('name').value.trim()));
+  $('save').disabled=!(venue&&$('msg').value.trim()&&(!agreed||$('name').value.trim()));
 }
 function syncAgree(){
   const agreed=$('agree').checked;
@@ -239,7 +398,7 @@ function syncAgree(){
 $('name').oninput=check;$('msg').oninput=check;$('agree').onchange=syncAgree;
 
 function renderMine(){
-  $('mine').hidden=!mine.length;$('list').textContent='';
+  $('list').textContent='';
   mine.slice().reverse().forEach(m=>{
     const k=C[m.color]?m.color:'gold';
     const c=document.createElement('div');c.className='wcard';c.style.setProperty('--c',C[k]);
@@ -248,10 +407,128 @@ function renderMine(){
     const lb=document.createElement('span');lb.className='label';lb.textContent=NAMES[k];
     band.append(ic,lb);
     const p=document.createElement('p');p.textContent=m.text;
-    c.append(band,p);
+    c.append(band);
+    if(m.venue&&V[m.venue]){const vt=document.createElement('div');vt.className='venue-tag';vt.textContent='📍 '+vlabel(m.venue);c.append(vt);}
+    c.append(p);
     if(m.name){const f=document.createElement('div');f.className='from';f.textContent='from. '+m.name;c.append(f);}$('list').appendChild(c);
   });
 }
+// ★ 공연장마다 따로 사진이 없을 때 쓸 기본 사진(없으면 '소호' 글자가 나와요). 작품별 사진은 아래 V의 img에 적어요.
+const PROFILE_IMG='';
+
+// ★ 공연장 정보. notice가 있는 곳은 축하 대신 공지 링크로 이동해요.
+const V={
+  nol:{name:'NOL 서경스퀘어',work:'아가사',img:'img/agatha.jpg',x:48.5,y:10.4,side:'L',link:''},
+  podoal:{name:'포도알 1·3호점',x:59.6,y:25.7,side:'R',link:'',notice:'https://x.com/soho_day?s=11&t=-U_KYkoInMCjbY6BHJi4lw'},
+  artone:{name:'YES24 아트원',work:'브로크백마운틴',img:'img/broke.jpg',x:68.9,y:44.9,side:'R',link:''},
+  hongik:{name:'홍익대 대학로 아트센터',work:'팬레터',img:'img/fanletter.jpg',x:45.0,y:64.6,side:'L',link:''},
+  hongik2:{name:'홍익대 대학로 아트센터',work:'곤투모로우',img:'img/gone.jpg',x:45.0,y:64.6,side:'L',link:'',same:'hongik'},
+  doosan:{name:'두산아트센터 연강홀',work:'렛미플라이',img:'img/letme.jpg',x:35.4,y:86.8,side:'R',link:''}
+};
+// ★ 2026 필모. venue는 지도 공연장 키(podoal/nol/hongik/doosan), link는 작품 페이지 주소예요.
+const FILMO=[
+  {title:'팬레터',venue:'hongik',period:'2026.03.17 – 06.07',link:'https://nol.yanolja.com/ticket/products/26001565',w:'gold'},
+  {title:'브로크백마운틴',venue:'artone',period:'2026.06.23 – 09.06',link:'',w:'pink'},
+  {title:'곤투모로우',venue:'hongik2',period:'2026.09.15 – 11.29',link:'https://nol.yanolja.com/ticket/products/26011520',w:'sky'},
+  {title:'렛미플라이',venue:'doosan',period:'2026.10.06 – 2027.01.03',link:'https://nol.yanolja.com/ticket/products/26012259',w:'lilac'},
+  {title:'아가사',venue:'nol',period:'2026.12.09 – 2027.02.28',link:'https://nol.yanolja.com/ticket/products/26015729',w:'snow'}
+];
+const WN={gold:'봄',pink:'여름 무지개',sky:'가을',lilac:'겨울밤',snow:'첫눈'};
+let venue=null, mapData=[];
+
+// 말풍선은 공연장 이름표 반대쪽에 작게 모여요 (공연장마다 최근 8개까지)
+function bubbleSpot(v,i){const side=V[v].side==='L'?1:-1,a=(-70+((i*47)%140))*Math.PI/180,r=5+(i%3)*2.4;return [V[v].x+side*Math.cos(a)*r,V[v].y+Math.sin(a)*r*0.62];}
+function vlabel(k){const v=V[k];return v?v.name+(v.work?' · '+v.work:''):''}
+function drawMap(lastMine){
+  const map=$('map');
+  map.querySelectorAll('.bubble,.venue').forEach(e=>e.remove());
+  const per={};
+  const byV={};
+  mapData.forEach((d,idx)=>{if(!V[d.venue]||V[d.venue].notice)return;per[d.venue]=(per[d.venue]||0)+1;const g=V[d.venue].same||d.venue;(byV[g]=byV[g]||[]).push(idx);});
+  Object.entries(byV).forEach(([v,list])=>{
+    list.slice(-8).forEach((idx,i)=>{
+      const d=mapData[idx];const [x,y]=bubbleSpot(v,i);
+      const b=document.createElement('span');b.className='bubble'+(idx===lastMine?' me':'');b.textContent=W[d.color]||W.gold;
+      b.style.left=Math.max(3,Math.min(97,x))+'%';b.style.top=Math.max(2,Math.min(98,y))+'%';
+      b.style.animationDelay=(idx===lastMine?0:i*0.05)+'s';
+      map.appendChild(b);
+    });
+  });
+  Object.entries(V).forEach(([k,v])=>{
+    if(v.notice){
+      const a=document.createElement('a');a.className='venue notice '+(v.side||'R');a.href=v.notice;a.target='_blank';a.rel='noopener';
+      a.style.left=v.x+'%';a.style.top=v.y+'%';a.setAttribute('aria-label',v.name+' 공지 보러 가기');
+      a.innerHTML='<span class="pin"></span><span class="tag"><span class="name"></span><span class="tile"><span class="icon">📢</span><span class="cnt">공지 보기</span></span></span>';
+      a.querySelector('.name').textContent=v.name;map.appendChild(a);return;
+    }
+    if(v.same)return;
+    const keys=[k].concat(Object.keys(V).filter(o=>V[o].same===k));
+    const box=document.createElement('div');box.className='venue '+(v.side||'R');
+    box.style.left=v.x+'%';box.style.top=v.y+'%';
+    box.innerHTML='<span class="pin"></span><span class="tag"><span class="name"></span><span class="works"></span></span>';
+    box.querySelector('.name').textContent=v.name;
+    keys.forEach(kk=>{
+      const b=document.createElement('button');b.className='wbtn';b.type='button';b.dataset.v=kk;
+      b.setAttribute('aria-pressed',venue===kk);b.setAttribute('aria-label',vlabel(kk)+' 선택');
+      b.innerHTML='<span class="tile photo"><span class="icon">소호</span></span><span class="wname"></span>';
+      b.querySelector('.wname').textContent=V[kk].work||'';
+      const src=V[kk].img||PROFILE_IMG;
+      if(src){const im=new Image();im.alt='';im.src=src;im.onload=()=>{const ic=b.querySelector('.icon');ic.textContent='';ic.classList.add('has-img');ic.appendChild(im);};}
+      b.onclick=()=>{if(isClosed())return;pickVenue(kk);go(3);};
+      box.querySelector('.works').appendChild(b);
+    });
+    map.appendChild(box);
+  });
+  const lg=$('legend');lg.textContent='';
+  Object.keys(W).forEach(k=>{const s=document.createElement('span');s.append(W[k]+' '+WN[k]+' ');const n=document.createElement('b');n.textContent=mapData.filter(d=>d.color===k&&V[d.venue]&&!V[d.venue].notice).length;s.append(n);lg.appendChild(s)});
+}
+function pickVenue(k){
+  venue=k;
+  $('pickedName').textContent='📍 '+vlabel(k);
+  document.querySelectorAll('.wbtn').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===k));
+  check();
+}
+Object.entries(V).forEach(([k,v])=>{
+  if(v.link){const a=document.createElement('a');a.href=v.link;a.target='_blank';a.rel='noopener';a.textContent=v.name+' 작품 ↗';$('links').appendChild(a);$('links').hidden=false;}
+});
+// 필모 카드
+FILMO.forEach(f=>{
+  const el=document.createElement(f.link?'a':'div');el.className='film';
+  if(f.link){el.href=f.link;el.target='_blank';el.rel='noopener';}
+  el.style.setProperty('--c',C[f.w]||C.gold);
+  el.innerHTML='<span class="fw"><b></b><small></small></span><span class="fi"><p class="ft"></p><p class="fm"></p></span>';
+  el.querySelector('.fw b').textContent=W[f.w]||W.gold;el.querySelector('.fw small').textContent=WN[f.w]||'';
+  el.querySelector('.ft').textContent=f.title;
+  el.querySelector('.fm').textContent=(V[f.venue]?'📍 '+V[f.venue].name+'\n':'')+f.period;
+  el.querySelector('.fm').style.whiteSpace='pre-line';
+  if(f.link){const l=document.createElement('span');l.className='fl';l.textContent='작품 보기 ↗';el.querySelector('.fi').appendChild(l);}
+  $('filmo').appendChild(el);
+});
+
+// 단계 이동
+let sent=false;
+function go(n,push=true){
+  if(isClosed()&&n>1)n=1;
+  if(n===3&&!venue)n=2;
+  ['s1','s2','s3'].forEach((id,i)=>$(id).hidden=(i+1)!==n);
+  document.querySelectorAll('#progress li').forEach(li=>{const k=+li.dataset.s;li.className=k===n?'on':(k<n?'done':'');});
+  const done=n===2&&sent;
+  $('t2').hidden=done;$('doneMsg').hidden=!done;$('moreBtn').hidden=!done;
+  $('mine').hidden=!(n===2&&mine.length);
+  if(push)history.pushState({step:n},'');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n===2)drawMap(done?mapData.length-1:undefined);
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(+b.dataset.go));
+$('goMap').onclick=()=>{sent=false;go(2);};
+$('moreBtn').onclick=()=>{sent=false;venue=null;go(2);};
+window.addEventListener('popstate',e=>go((e.state&&e.state.step)||1,false));
+history.replaceState({step:1},'');
+go(1,false);
+
+drawMap();
+fetch(API_URL+'?action=map').then(r=>r.json()).then(res=>{if(res&&res.ok){mapData=res.items||[];drawMap();}}).catch(()=>{});
+
 renderMine();
 
 $('save').onclick=()=>{
@@ -259,15 +536,19 @@ $('save').onclick=()=>{
   const agree=$('agree').checked;
   const name=agree?$('name').value.trim():'', text=$('msg').value.trim();
   $('save').disabled=true;$('status').className='status';$('status').textContent='보내는 중…';
-  fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name,text,color,agree})})
+  fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name,text,color,agree,venue})})
     .then(r=>r.json())
     .then(res=>{
       if(res&&res.closed){showClosed();return;}
       if(!res||!res.ok)throw new Error(res&&res.error||'');
-      mine.push({name,text,color});
+      mine.push({name,text,color,venue});
+      mapData.push({venue,color});drawMap(mapData.length-1);
       try{localStorage.setItem(KEY,JSON.stringify(mine))}catch(e){}
       $('msg').value='';check();renderMine();
-      $('status').textContent='축하 메시지를 작성했습니다! 다시 한번 배우님의 데뷔일을 축하해주세요!';
+      $('status').textContent='';
+      $('doneMsg').textContent='📍 '+vlabel(venue)+'에 축하 예보를 띄웠어요! 💛\n다시 한번 배우님의 데뷔일을 축하해주세요!';
+      $('doneMsg').style.whiteSpace='pre-line';
+      sent=true;go(2);
     })
     .catch(err=>{
       $('status').className='status err';
