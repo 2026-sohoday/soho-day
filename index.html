@@ -367,6 +367,7 @@ const END_AT=new Date('2026-12-06T23:59:59+09:00');
 function isClosed(){return Date.now()>END_AT.getTime()}
 function showClosed(){
   const c=document.getElementById('closed');if(!c||!c.hidden)return;
+  try{localStorage.removeItem('debut-cheer-mine')}catch(e){}
   c.hidden=false;['s2','s3','progress'].forEach(id=>{const e=document.getElementById(id);if(e)e.hidden=true;});
   const b=document.getElementById('goMap');if(b)b.hidden=true;
   const s1=document.getElementById('s1');if(s1){s1.hidden=false;s1.after(c);}
@@ -382,7 +383,17 @@ const W={gold:'🌸',pink:'🌈',sky:'🍂',lilac:'✨',snow:'❄️'};
 const $=id=>document.getElementById(id);
 let color='gold', mine=[];
 const KEY='debut-cheer-mine';
+// 내가 보낸 축하는 이 기기에만 저장돼요. 보낸 지 하루가 지나면, 그리고 이벤트가 끝나면 자동으로 지워져요.
+const KEEP_MS=24*60*60*1000;
+function saveMine(){try{if(mine.length)localStorage.setItem(KEY,JSON.stringify(mine));else localStorage.removeItem(KEY);}catch(e){}}
+function pruneMine(){
+  if(isClosed()){mine=[];}
+  else{const now=Date.now();mine=mine.filter(m=>m&&m.at&&now-m.at<KEEP_MS);}
+  saveMine();
+}
 try{mine=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){mine=[]}
+if(!Array.isArray(mine))mine=[];
+pruneMine();
 
 Object.keys(C).forEach(k=>{const b=document.createElement('button');b.type='button';b.style.background=C[k];b.textContent=W[k];b.title=NAMES[k];
   b.setAttribute('role','radio');b.setAttribute('aria-label',NAMES[k]);b.dataset.c=k;b.onclick=()=>pick(k);$('sw').appendChild(b)});
@@ -544,7 +555,16 @@ history.replaceState({step:1},'');
 go(1,false);
 
 drawMap();
-fetch(API_URL+'?action=map').then(r=>r.json()).then(res=>{if(res&&res.ok){mapData=res.items||[];drawMap();}}).catch(()=>{});
+// ★ 지도 자동 갱신: 화면을 보고 있는 동안 10분마다 새 축하를 불러와요.
+const REFRESH_MS=10*60*1000;let lastLoad=0;
+function loadMap(){
+  if(document.hidden)return;
+  lastLoad=Date.now();
+  fetch(API_URL+'?action=map').then(r=>r.json()).then(res=>{if(res&&res.ok){mapData=res.items||[];drawMap();}}).catch(()=>{});
+}
+loadMap();
+setInterval(loadMap,REFRESH_MS);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastLoad>REFRESH_MS)loadMap();});
 
 renderMine();
 
@@ -558,7 +578,7 @@ $('save').onclick=()=>{
     .then(res=>{
       if(res&&res.closed){showClosed();return;}
       if(!res||!res.ok)throw new Error(res&&res.error||'');
-      mine.push({name,text,color,venue});
+      mine.push({name,text,color,venue,at:Date.now()});
       mapData.push({venue,color});drawMap(mapData.length-1);
       try{localStorage.setItem(KEY,JSON.stringify(mine))}catch(e){}
       $('msg').value='';check();renderMine();

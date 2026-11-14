@@ -478,15 +478,24 @@ const key=new URLSearchParams(location.search).get('view')||'';
 if(!key){
   $('loadmsg').textContent='이 페이지는 축하받는 분만 볼 수 있어요.';
 }else{
-  $('loadmsg').textContent='축하 예보를 불러오는 중이에요 ☁️';
-  fetch(API_URL+'?action=list&key='+encodeURIComponent(key))
-    .then(r=>r.json())
-    .then(res=>{
-      if(!res||!res.ok){$('loadmsg').textContent=(res&&res.error)||'불러오지 못했어요.';return;}
-      messages=res.messages||[];loaded=true;$('loadmsg').textContent='';
-      drawMap();if(openKey)openSheet(openKey);
-    })
-    .catch(()=>{$('loadmsg').textContent='불러오지 못했어요. 새로고침해 주세요.';});
+  // ★ 자동 갱신: 화면을 보고 있는 동안 10분마다 새 축하를 불러와요. (처음 열 때만 열람 기록·메일이 가요)
+  const REFRESH_MS=10*60*1000;let lastLoad=0;
+  function loadList(first){
+    if(!first&&document.hidden)return;
+    lastLoad=Date.now();
+    if(first)$('loadmsg').textContent='축하 예보를 불러오는 중이에요 ☁️';
+    fetch(API_URL+'?action=list&key='+encodeURIComponent(key)+(first?'':'&refresh=1'))
+      .then(r=>r.json())
+      .then(res=>{
+        if(!res||!res.ok){if(first)$('loadmsg').textContent=(res&&res.error)||'불러오지 못했어요.';return;}
+        messages=res.messages||[];loaded=true;$('loadmsg').textContent='';
+        drawMap();if(openKey)openSheet(openKey);
+      })
+      .catch(()=>{if(first)$('loadmsg').textContent='불러오지 못했어요. 새로고침해 주세요.';});
+  }
+  loadList(true);
+  setInterval(()=>loadList(false),REFRESH_MS);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastLoad>REFRESH_MS)loadList(false);});
 }
 drawMap();
 </script>
