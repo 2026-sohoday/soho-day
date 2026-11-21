@@ -223,7 +223,7 @@ input:disabled::placeholder{color:#9AA6C0}
   <!-- ① 2026 필모 -->
   <section class="step" id="s1" aria-labelledby="t1">
     <figure class="banner" id="banner" hidden><img id="bannerImg" alt="윤소호 데뷔 15주년 축하 배너"></figure>
-    <h2 class="step-title" id="t1">2026 윤소호 필모 예보 🎭</h2>
+    <h2 class="step-title" id="t1">2026년 윤소호 관측 결과</h2>
     <p class="step-sub">올해 배우님이 함께한 무대예요</p>
     <div class="filmo" id="filmo"></div>
     <button class="cta" id="goMap" type="button">축하 예보 보내러 가기 ☀️</button>
@@ -311,19 +311,19 @@ input:disabled::placeholder{color:#9AA6C0}
     <div class="wx-body">
       <p class="to">To. 윤소호</p>
       <div class="picked"><b id="pickedName">📍 공연장</b><button type="button" data-go="2">바꾸기</button></div>
-      <div class="field"><label for="name">트위터 아이디</label><input id="name" maxlength="20" placeholder="개인정보 수집에 동의하면 입력할 수 있어요" autocomplete="off" autocapitalize="off" spellcheck="false" disabled></div>
+      <div class="field"><label for="name">X (구 트위터) 아이디</label><input id="name" maxlength="20" placeholder="개인정보 수집에 동의하면 입력할 수 있어요" autocomplete="off" autocapitalize="off" spellcheck="false" disabled></div>
       <div class="consent">
         <label class="agree"><input type="checkbox" id="agree"><span><span class="req">[선택]</span> 개인정보 수집·이용에 동의합니다</span></label>
         <details>
           <summary>내용 보기</summary>
           <dl>
-            <dt>수집 항목</dt><dd>트위터 아이디</dd>
+            <dt>수집 항목</dt><dd>X (구 트위터) 아이디</dd>
             <dt>수집 목적</dt><dd>윤소호 배우님 15주년 축하 이벤트 참가 및 당첨자 안내</dd>
             <dt>보유 기간</dt><dd><b>2026년 12월 31일까지 보관 후 파기 (미당첨자의 아이디는 즉시 파기합니다.)</b></dd>
             <dd class="note">동의를 거부할 수 있으며, 동의하지 않으면 축하 이벤트 참가 및 당첨이 어려울 수 있습니다.</dd>
           </dl>
         </details>
-        <p class="consent-hint" id="hint">동의하지 않아도 축하 메시지는 보낼 수 있어요. 이 경우 트위터 아이디는 수집하지 않아요.</p>
+        <p class="consent-hint" id="hint">축하메시지 작성 이벤트 참가하기 위해서는 X (구 트위터) 아이디 수집 동의가 필요해요. 동의하시면 이벤트에 참가하실 수 있어요. 동의하지 않고 메시지만 남기는 것도 가능해요</p>
       </div>
       <div class="field"><label for="msg">축하 메시지</label><textarea id="msg" maxlength="500" placeholder="데뷔 15주년 진심으로 축하드려요!"></textarea></div>
       <div class="row">
@@ -354,7 +354,7 @@ input:disabled::placeholder{color:#9AA6C0}
     <div class="closed-body">
       <p class="big">윤소호 배우님 데뷔 15주년<br>축하 이벤트가 종료되었어요</p>
       <p>보내주신 따뜻한 축하 예보는<br>배우님께 소중히 전해드릴게요.</p>
-      <p>당첨자분들께는 동의해 주신 트위터 아이디로<br>개별 안내드릴 예정이에요.</p>
+      <p>당첨자분들께는 동의해 주신 X (구 트위터) 아이디로<br>개별 안내드릴 예정이에요.</p>
       <p class="thanks">함께 축하해 주셔서 고마워요 💛<br>앞으로의 날들도 늘 맑음이길 ☀️</p>
     </div>
   </div>
@@ -409,7 +409,7 @@ function syncAgree(){
   $('name').disabled=!agreed;
   if(!agreed)$('name').value='';
   $('name').placeholder=agreed?'@아이디':'개인정보 수집에 동의하면 입력할 수 있어요';
-  $('hint').textContent=agreed?'이벤트 당첨 안내를 위해 트위터 아이디를 입력해 주세요.':'동의하지 않아도 축하 메시지는 보낼 수 있어요. 이 경우 트위터 아이디는 수집하지 않아요.';
+  
   if(agreed)$('name').focus();
   check();
 }
@@ -444,14 +444,30 @@ const V={
   doosan:{name:'두산아트센터 연강홀',work:'렛미플라이',img:'letme.jpg',x:35.4,y:86.8,side:'R',link:''}
 };
 // ★ 2026 필모. venue는 지도 공연장 키(podoal/nol/hongik/doosan), link는 작품 페이지 주소예요.
-// ★ 작품별 예매처 링크. links에 {label:'예매처 이름',url:'주소'}를 추가하면 버튼이 늘어나요.
+// ★ 작품별 링크. 공연 중·예정이면 links(예매처)가, end(종료일)가 지나면 profile(프로필 보기)이 나와요.
 const FILMO=[
-  {title:'팬레터',venue:'hongik',period:'2026.03.17 – 06.07',w:'gold',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26001565'}]},
-  {title:'브로크백마운틴',venue:'artone',period:'2026.06.23 – 09.06',w:'pink',links:[{label:'YES24',url:'https://ticket.yes24.com/perf/58538'}]},
-  {title:'곤투모로우',venue:'hongik2',period:'2026.09.15 – 11.29',w:'sky',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26011520'}]},
-  {title:'렛미플라이',venue:'doosan',period:'2026.10.06 – 2027.01.03',w:'lilac',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26012259'},{label:'티켓링크',url:'https://www.ticketlink.co.kr/product/65165'},{label:'YES24',url:'https://ticket.yes24.com/Perf/59852'}]},
-  {title:'아가사',venue:'nol',period:'2026.12.09 – 2027.02.28',w:'snow',links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26015729'},{label:'YES24',url:'https://ticket.yes24.com/Perf/60940'}]}
+  {title:'렛미플라이',venue:'doosan',period:'2026.10.06 – 2027.01.03',end:'2027-01-03',w:'lilac',
+   profile:'',
+   links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26012259'},{label:'티켓링크',url:'https://www.ticketlink.co.kr/product/65165'},{label:'YES24',url:'https://ticket.yes24.com/Perf/59852'}]},
+  {title:'아가사',venue:'nol',period:'2026.12.09 – 2027.02.28',end:'2027-02-28',w:'snow',
+   profile:'',
+   links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26015729'},{label:'YES24',url:'https://ticket.yes24.com/Perf/60940'}]},
+  {title:'곤투모로우',venue:'hongik2',period:'2026.09.15 – 11.29',end:'2026-11-29',w:'sky',
+   profile:'https://x.com/page1company/status/2085245249111441417',
+   links:[]},
+  {title:'브로크백마운틴',venue:'artone',period:'2026.06.23 – 09.06',end:'2026-09-06',w:'pink',
+   profile:'https://x.com/newpro_bm/status/2059817393405452320',
+   links:[{label:'YES24',url:'https://ticket.yes24.com/perf/58538'}]},
+  {title:'팬레터',venue:'hongik',period:'2026.03.17 – 06.07',end:'2026-06-07',w:'gold',
+   profile:'https://x.com/livecorp2011/status/2018840928258240818',
+   links:[{label:'NOL 티켓',url:'https://nol.yanolja.com/ticket/products/26001565'}]}
 ];
+function filmLinks(f){
+  const ended=f.end&&Date.now()>new Date(f.end+'T23:59:59+09:00').getTime();
+  if(ended&&f.profile)return [{label:'프로필 보기',url:f.profile}];
+  const t=(f.links||[]).filter(l=>l.url);
+  return t.length?t:(f.profile?[{label:'프로필 보기',url:f.profile}]:[]);
+}
 const WN={gold:'봄',pink:'여름 무지개',sky:'가을',lilac:'겨울밤',snow:'첫눈'};
 let venue=null, mapData=[];
 
@@ -529,7 +545,7 @@ FILMO.forEach(f=>{
   el.querySelector('.ft').textContent=f.title;
   el.querySelector('.fm').textContent=(V[f.venue]?'📍 '+V[f.venue].name+'\n':'')+f.period;
   el.querySelector('.fm').style.whiteSpace='pre-line';
-  (f.links||[]).filter(l=>l.url).forEach(l=>{const a=document.createElement('a');a.className='fl';a.href=l.url;a.target='_blank';a.rel='noopener';a.textContent=l.label+' ↗';el.querySelector('.fls').appendChild(a);});
+  filmLinks(f).forEach(l=>{const a=document.createElement('a');a.className='fl';a.href=l.url;a.target='_blank';a.rel='noopener';a.textContent=l.label+' ↗';el.querySelector('.fls').appendChild(a);});
   $('filmo').appendChild(el);
 });
 
