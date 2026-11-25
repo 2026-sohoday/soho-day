@@ -68,12 +68,12 @@ h1 small{display:block;font-family:"Jua",var(--ui);font-size:.34em;color:#2A5A9E
 @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
 @keyframes blink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.wx-sun,.wx-sun .rays,.cloud,.wx-live::before{animation:none}}
-.to{font-family:var(--hand);font-size:24px;font-weight:400;margin:0 0 12px;position:relative}
+.to{font-family:var(--ui);font-size:15px;font-weight:400;color:#1E3A6E;margin:0 0 12px;position:relative}
 label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;position:relative}
 input,textarea{position:relative;width:100%;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;outline:none}
 input:focus,textarea:focus{border-color:#5DB4FF}
-textarea{min-height:140px;resize:vertical;font-family:var(--hand);font-size:19px;line-height:1.6;
- background:repeating-linear-gradient(#fff 0 29px,#E3F1FF 29px 30px);background-attachment:local}
+textarea{min-height:170px;resize:vertical;font-family:var(--ui);font-size:14px;font-weight:400;line-height:32px;padding-top:4px;
+ background:repeating-linear-gradient(#fff 0 31px,#E3F1FF 31px 32px);background-position:0 4px;background-attachment:local}
 .field{margin-bottom:14px}
 /* 개인정보 수집 동의 */
 .consent{background:#F4FAFF;border:1.5px solid #CFE8FF;border-radius:14px;padding:12px 14px;margin-bottom:16px}
@@ -176,7 +176,7 @@ input:disabled::placeholder{color:#9AA6C0}
 .back{border:0;background:rgba(255,255,255,.75);color:#1E3A6E;border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
 .back:focus-visible,.cta:focus-visible,.film:focus-visible{outline:3px solid #5DB4FF;outline-offset:2px}
 .step-title{font-family:"Jua",var(--ui);font-weight:400;font-size:22px;text-align:center;margin:0 0 14px;color:#1E3A6E}
-.step-sub{text-align:center;font-size:14px;color:#3B6AA8;margin:-6px 0 16px}
+.step-sub{text-align:center;font-family:var(--ui);font-size:14px;font-weight:400;line-height:1.6;color:#1E3A6E;margin:-6px 0 16px}
 .cta{display:block;width:100%;border:0;border-radius:18px;padding:16px;font-family:"Jua",var(--ui);font-size:19px;color:#7A4A00;cursor:pointer;
  background:linear-gradient(180deg,#FFE88A,#FFC93C);box-shadow:0 5px 0 #E8A920,0 10px 20px rgba(255,201,77,.35);margin-top:8px}
 .cta:active{transform:translateY(2px);box-shadow:0 3px 0 #E8A920}
@@ -310,7 +310,7 @@ input:disabled::placeholder{color:#9AA6C0}
       <span>축하 확률 <b>100%</b></span><span>데뷔 <b>15주년</b> 특보 📢</span><span>설렘 지수 <b>MAX</b></span><span>하루 종일 맑음 ☀️</span>
     </div>
     <div class="wx-body">
-      <p class="to">To. 윤소호</p>
+      <p class="to">To. 윤소호 배우님</p>
       <div class="picked"><b id="pickedName">📍 공연장</b><button type="button" data-go="2">바꾸기</button></div>
       <div class="field"><label for="name">X (구 트위터) 아이디</label><input id="name" maxlength="20" placeholder="개인정보 수집에 동의하면 입력할 수 있어요" autocomplete="off" autocapitalize="off" spellcheck="false" disabled></div>
       <div class="consent">
@@ -475,21 +475,39 @@ let venue=null, mapData=[];
 // 말풍선은 공연장 핀 주변에 가깝게 모여요 (공연장마다 최근 8개까지)
 function bubbleSpot(v,i){const seed=(v.length*13+i*7)%10,a=(i*137.5+seed*11)*Math.PI/180,r=7.5+((i*3+seed)%4)*0.9;return [V[v].x+Math.cos(a)*r,V[v].y+Math.sin(a)*r*0.6];}
 function vlabel(k){const v=V[k];return v?v.name+(v.work?' · '+v.work:''):''}
+// 날씨 말풍선을 공연장 사진·이름표·지명 글씨와 겹치지 않는 빈 자리에 배치해요
+function layoutBubbles(map,items){
+  const W0=map.clientWidth,H0=map.clientHeight; if(!W0||!H0)return;
+  const mr=map.getBoundingClientRect();
+  const box=(e,p)=>{const r=e.getBoundingClientRect();return {l:r.left-mr.left-p,t:r.top-mr.top-p,r:r.right-mr.left+p,b:r.bottom-mr.top+p};};
+  const blocks=[...map.querySelectorAll('.venue .tag,.venue .pin,.lbl')].map(e=>box(e,3));
+  const ov=(a,b)=>a.l<b.r&&a.r>b.l&&a.t<b.b&&a.b>b.t;
+  const placed=[],bw=28,bh=24;
+  items.forEach((it,n)=>{
+    const cx=V[it.v].x/100*W0, cy=V[it.v].y/100*H0, seed=(it.v.length*1.7+n*0.37);
+    for(let k=0;k<500;k++){
+      const a=k*2.39996+seed, r=22+Math.sqrt(k)*6;
+      const x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r;
+      const bb={l:x-bw/2,t:y-bh/2,r:x+bw/2,b:y+bh/2};
+      if(bb.l<2||bb.t<2||bb.r>W0-2||bb.b>H0-2)continue;
+      if(blocks.some(o=>ov(bb,o))||placed.some(o=>ov(bb,o)))continue;
+      placed.push(bb);
+      const b=document.createElement('span');b.className='bubble'+(it.me?' me':'');b.textContent=W[it.color]||W.gold;
+      b.style.left=(x/W0*100)+'%';b.style.top=(y/H0*100)+'%';
+      b.style.animationDelay=(it.me?0:it.i*0.05)+'s';
+      map.appendChild(b);break;
+    }
+  });
+}
+let _rsz;window.addEventListener('resize',()=>{clearTimeout(_rsz);_rsz=setTimeout(()=>{try{drawMap()}catch(e){}},200);});
 function drawMap(lastMine){
   const map=$('map');
   map.querySelectorAll('.bubble,.venue').forEach(e=>e.remove());
   const per={};
   const byV={};
   mapData.forEach((d,idx)=>{if(!V[d.venue]||V[d.venue].notice)return;per[d.venue]=(per[d.venue]||0)+1;const g=V[d.venue].same||d.venue;(byV[g]=byV[g]||[]).push(idx);});
-  Object.entries(byV).forEach(([v,list])=>{
-    list.slice(-8).forEach((idx,i)=>{
-      const d=mapData[idx];const [x,y]=bubbleSpot(v,i);
-      const b=document.createElement('span');b.className='bubble'+(idx===lastMine?' me':'');b.textContent=W[d.color]||W.gold;
-      b.style.left=Math.max(3,Math.min(97,x))+'%';b.style.top=Math.max(2,Math.min(98,y))+'%';
-      b.style.animationDelay=(idx===lastMine?0:i*0.05)+'s';
-      map.appendChild(b);
-    });
-  });
+  const items=[];
+  Object.entries(byV).forEach(([v,list])=>{list.slice(-8).forEach((idx,i)=>{items.push({v,i,color:mapData[idx].color,me:idx===lastMine});});});
   Object.entries(V).forEach(([k,v])=>{
     if(v.notice){
       const a=document.createElement('a');a.className='venue notice '+(v.side||'R');a.href=v.notice;a.target='_blank';a.rel='noopener';
@@ -515,6 +533,7 @@ function drawMap(lastMine){
     });
     map.appendChild(box);
   });
+  layoutBubbles(map,items);
   const lg=$('legend');lg.textContent='';
   Object.keys(W).forEach(k=>{const s=document.createElement('span');s.append(W[k]+' '+WN[k]+' ');const n=document.createElement('b');n.textContent=mapData.filter(d=>d.color===k&&V[d.venue]&&!V[d.venue].notice).length;s.append(n);lg.appendChild(s)});
 }
