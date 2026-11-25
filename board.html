@@ -241,12 +241,12 @@ input:disabled::placeholder{color:#9AA6C0}
 .sheet .ph small{display:block;font-family:var(--ui);font-size:12.5px;color:#4A5A80;margin-top:2px}
 .sheet .close{margin-left:auto;flex:none;border:0;background:#fff;color:#1E3A6E;border-radius:999px;width:36px;height:36px;font-size:18px;cursor:pointer}
 .sheet .close:focus-visible{outline:3px solid #5DB4FF}
-.sheet .list{overflow:auto;padding:14px 16px calc(20px + env(safe-area-inset-bottom,0px));display:grid;gap:12px}
-.mcard{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 20px rgba(30,58,110,.12)}
-.mcard .band{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:var(--c)}
+.sheet .list{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px}
+.mcard{flex:none;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 20px rgba(30,58,110,.12)}
+.mcard .band{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;background:var(--c)}
 .mcard .band b{font-size:20px;line-height:1}
 .mcard .band span{font-family:"Jua",var(--ui);font-size:14px;color:rgba(30,58,110,.85)}
-.mcard p{margin:0;padding:14px 16px 16px;font-family:var(--hand);font-size:18px;line-height:1.55;white-space:pre-wrap;word-break:break-word;color:#1E3A6E}
+.mcard p{margin:0;padding:14px 18px 18px;font-family:var(--ui);font-size:15px;font-weight:400;line-height:1.85;letter-spacing:-.01em;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;color:#1E3A6E}
 .sheet .empty{text-align:center;font-family:"Jua",var(--ui);color:#2A5A9E;padding:30px 0}
 .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:40}
 .confetti i{position:absolute;top:-24px;font-style:normal;font-size:18px;animation:fall linear forwards}
@@ -266,6 +266,38 @@ input:disabled::placeholder{color:#9AA6C0}
 .bhead .bstats span{background:rgba(255,255,255,.85);border:1.5px solid #CFE8FF;color:#2A5A9E;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:600}
 .bhead .bstats b{color:#FF5C8A}
 @media (prefers-reduced-motion:reduce){.bhead .sun,.bhead .sun .rays,.bhead .blive::before{animation:none}}
+</style><style>
+/* 엽서 넘겨보기 */
+.sheet .panel{max-height:96vh;height:auto}
+.pc-wrap{flex:none;display:flex;flex-direction:column}
+.pc-track{--pcw:min(90%,400px,calc((96vh - 200px) / 1.41));display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px calc(50% - var(--pcw) / 2) 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.pc-track::-webkit-scrollbar{display:none}
+.pc{flex:0 0 var(--pcw);aspect-ratio:105/148;scroll-snap-align:center;position:relative;background:#FFFDF8;border-radius:10px;
+ box-shadow:0 14px 30px rgba(30,58,110,.22),0 2px 0 rgba(30,58,110,.06);display:flex;flex-direction:column;padding:22px 18px 14px;transform:rotate(var(--r));transition:transform .3s}
+.pc.on{transform:rotate(0) scale(1.02)}
+.pc::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;border-radius:10px 10px 0 0;
+ background:repeating-linear-gradient(135deg,var(--c) 0 12px,#fff 12px 18px,#8FB8E8 18px 30px,#fff 30px 36px)}
+.pc .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.pc .to{font-family:var(--ui);font-size:15px;color:#1E3A6E;margin:6px 0 0}
+.pc .stamp{flex:none;width:62px;height:72px;background:var(--c);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+ outline:2px dashed rgba(255,255,255,.9);outline-offset:-5px;box-shadow:0 2px 6px rgba(30,58,110,.18);transform:rotate(4deg)}
+.pc .stamp b{font-size:26px;line-height:1}
+.pc .stamp span{word-break:keep-all;font-family:"Jua",var(--ui);font-size:10px;color:rgba(30,58,110,.85);text-align:center;line-height:1.15;padding:0 4px}
+.pc .body{flex:1;min-height:0;overflow-y:auto;margin:0 -4px;padding:0 4px}
+.pc .body p{margin:0;font-family:var(--ui);font-size:15.5px;line-height:31px;color:#1E3A6E;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;
+ background:repeating-linear-gradient(transparent 0 30px,#E3EEFB 30px 31px);min-height:100%}
+.pc .foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed #D3E2F5}
+.pc .foot span{font-family:"Jua",var(--ui);font-size:10.5px;letter-spacing:.03em;color:#3B6AA8}
+.pc .foot .who{display:flex;align-items:center;gap:8px}
+.pc .foot .wk{font-size:12px;color:#1E3A6E}
+.pc .post{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #FFD84D;opacity:.95}
+.pc-nav{display:flex;align-items:center;justify-content:center;gap:18px;padding:6px 0 calc(14px + env(safe-area-inset-bottom,0px))}
+.pc-nav button{width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#1E3A6E;font-size:20px;cursor:pointer;box-shadow:0 4px 10px rgba(30,58,110,.15)}
+.pc-nav button:disabled{opacity:.35;cursor:default}
+.pc-nav button:focus-visible{outline:3px solid #5DB4FF}
+.pc-count{font-family:"Jua",var(--ui);font-size:16px;color:#1E3A6E;min-width:64px;text-align:center}
+.pc-empty{text-align:center;font-family:"Jua",var(--ui);color:#2A5A9E;padding:40px 0}
+@media (prefers-reduced-motion:reduce){.pc{transition:none}}
 </style>
 </head>
 <body>
@@ -350,7 +382,7 @@ input:disabled::placeholder{color:#9AA6C0}
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
   <div class="panel">
     <div class="ph"><img id="sheetImg" alt="" hidden><div><h3 id="sheetTitle"></h3><small id="sheetSub"></small></div><button class="close" id="sheetClose" type="button" aria-label="닫기">✕</button></div>
-    <div class="list" id="sheetList"></div>
+    <div class="pc-wrap"><div class="pc-track" id="sheetList" tabindex="0" aria-label="축하 엽서 목록"></div><div class="pc-nav"><button type="button" id="pcPrev" aria-label="이전 엽서">‹</button><span class="pc-count" id="pcCount"></span><button type="button" id="pcNext" aria-label="다음 엽서">›</button></div></div>
   </div>
 </div>
 
@@ -405,19 +437,38 @@ $('backBtn').onclick=()=>show(1);
 window.addEventListener('popstate',e=>{closeSheet(false);show((e.state&&e.state.p)||1,false);});
 history.replaceState({p:1},'');
 
+// 날씨 말풍선을 공연장 사진·이름표·지명 글씨와 겹치지 않는 빈 자리에 배치해요
+function layoutBubbles(map,items){
+  const W0=map.clientWidth,H0=map.clientHeight; if(!W0||!H0)return;
+  const mr=map.getBoundingClientRect();
+  const box=(e,p)=>{const r=e.getBoundingClientRect();return {l:r.left-mr.left-p,t:r.top-mr.top-p,r:r.right-mr.left+p,b:r.bottom-mr.top+p};};
+  const blocks=[...map.querySelectorAll('.venue .tag,.venue .pin,.lbl')].map(e=>box(e,3));
+  const ov=(a,b)=>a.l<b.r&&a.r>b.l&&a.t<b.b&&a.b>b.t;
+  const placed=[],bw=28,bh=24;
+  items.forEach((it,n)=>{
+    const cx=V[it.v].x/100*W0, cy=V[it.v].y/100*H0, seed=(it.v.length*1.7+n*0.37);
+    for(let k=0;k<500;k++){
+      const a=k*2.39996+seed, r=22+Math.sqrt(k)*6;
+      const x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r;
+      const bb={l:x-bw/2,t:y-bh/2,r:x+bw/2,b:y+bh/2};
+      if(bb.l<2||bb.t<2||bb.r>W0-2||bb.b>H0-2)continue;
+      if(blocks.some(o=>ov(bb,o))||placed.some(o=>ov(bb,o)))continue;
+      placed.push(bb);
+      const b=document.createElement('span');b.className='bubble'+(it.me?' me':'');b.textContent=W[it.color]||W.gold;
+      b.style.left=(x/W0*100)+'%';b.style.top=(y/H0*100)+'%';
+      b.style.animationDelay=(it.me?0:it.i*0.05)+'s';
+      map.appendChild(b);break;
+    }
+  });
+}
+let _rsz;window.addEventListener('resize',()=>{clearTimeout(_rsz);_rsz=setTimeout(()=>{try{drawMap()}catch(e){}},200);});
 function drawMap(){
   const map=$('map');
   map.querySelectorAll('.bubble,.venue').forEach(e=>e.remove());
   const per={},byV={};
   messages.forEach((m,idx)=>{if(!V[m.venue]||V[m.venue].notice)return;per[m.venue]=(per[m.venue]||0)+1;const g=V[m.venue].same||m.venue;(byV[g]=byV[g]||[]).push(idx);});
-  Object.entries(byV).forEach(([v,list])=>{
-    list.slice(-8).forEach((idx,i)=>{
-      const m=messages[idx];const [x,y]=bubbleSpot(v,i);
-      const b=document.createElement('span');b.className='bubble';b.textContent=W[m.color]||W.gold;
-      b.style.left=Math.max(3,Math.min(97,x))+'%';b.style.top=Math.max(2,Math.min(98,y))+'%';
-      b.style.animationDelay=(i*0.05)+'s';map.appendChild(b);
-    });
-  });
+  const items=[];
+  Object.entries(byV).forEach(([v,list])=>{list.slice(-8).forEach((idx,i)=>{items.push({v,i,color:messages[idx].color,me:false});});});
   Object.entries(V).forEach(([k,v])=>{
     if(v.notice){
       const a=document.createElement('a');a.className='venue notice '+(v.side||'R');a.href=v.notice;a.target='_blank';a.rel='noopener';
@@ -443,6 +494,7 @@ function drawMap(){
     });
     map.appendChild(box);
   });
+  layoutBubbles(map,items);
   const lg=$('legend');lg.textContent='';
   Object.keys(W).forEach(k=>{const s=document.createElement('span');s.append(W[k]+' '+WN[k]+' ');const n=document.createElement('b');n.textContent=messages.filter(m=>m.color===k).length;s.append(n);lg.appendChild(s)});
 }
@@ -454,20 +506,29 @@ function openSheet(k){
   $('sheetSub').textContent='📍 '+v.name+' · '+list.length+'개의 축하';
   const img=$('sheetImg'); if(v.img){img.src=v.img;img.hidden=false;}else img.hidden=true;
   const box=$('sheetList');box.textContent='';
-  if(!loaded){const e=document.createElement('div');e.className='empty';e.textContent='축하 예보를 불러오는 중이에요 ☁️';box.appendChild(e);}
-  else if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent='아직 도착한 축하가 없어요.';box.appendChild(e);}
-  list.forEach(m=>{
+  if(!loaded||!list.length){const e=document.createElement('div');e.className='pc-empty';e.style.width='100%';e.textContent=loaded?'아직 도착한 축하가 없어요.':'축하 예보를 불러오는 중이에요 ☁️';box.appendChild(e);}
+  list.forEach((m,i)=>{
     const k2=C[m.color]?m.color:'gold';
-    const c=document.createElement('div');c.className='mcard';c.style.setProperty('--c',C[k2]);
-    const band=document.createElement('div');band.className='band';
-    const ic=document.createElement('b');ic.textContent=W[k2];const lb=document.createElement('span');lb.textContent=NAMES[k2];
-    band.append(ic,lb);
-    const p=document.createElement('p');p.textContent=m.text;
-    c.append(band,p);box.appendChild(c);
+    const c=document.createElement('article');c.className='pc';c.style.setProperty('--c',C[k2]);c.style.setProperty('--r',(((i*37)%5)-2)*0.6+'deg');
+    c.setAttribute('aria-label',(i+1)+'번째 축하 엽서');
+    c.innerHTML='<div class="top"><p class="to">To. 윤소호 배우님</p><div class="stamp"><b></b><span></span></div></div><div class="body"><p></p></div><div class="foot"><span class="ht">#Happy_SOHO_Day</span><span class="who"><span class="wk"></span><img class="post" alt=""></span></div>';
+    c.querySelector('.stamp b').textContent=W[k2];c.querySelector('.stamp span').textContent=NAMES[k2];
+    c.querySelector('.body p').textContent=m.text;
+    c.querySelector('.foot .wk').textContent=v.work||v.name;
+    const im=c.querySelector('.post'); if(v.img)im.src=v.img; else im.remove();
+    box.appendChild(c);
   });
+  box.scrollLeft=0;pcUpdate();
   $('sheet').hidden=false;document.body.style.overflow='hidden';
   $('sheetClose').focus();
 }
+function pcCards(){return [...$('sheetList').querySelectorAll('.pc')];}
+function pcIndex(){const t=$('sheetList'),cs=pcCards();if(!cs.length)return 0;const mid=t.scrollLeft+t.clientWidth/2;let best=0,d=1e9;cs.forEach((c,i)=>{const cm=c.offsetLeft+c.offsetWidth/2;const dd=Math.abs(cm-mid);if(dd<d){d=dd;best=i;}});return best;}
+function pcUpdate(){const cs=pcCards(),i=pcIndex();$('pcCount').textContent=cs.length?(i+1)+' / '+cs.length:'';$('pcPrev').disabled=i<=0;$('pcNext').disabled=i>=cs.length-1;cs.forEach((c,j)=>c.classList.toggle('on',j===i));$('pcPrev').hidden=$('pcNext').hidden=!cs.length;}
+function pcGo(d){const cs=pcCards(),i=Math.max(0,Math.min(cs.length-1,pcIndex()+d));if(cs[i])cs[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
+$('pcPrev').onclick=()=>pcGo(-1);$('pcNext').onclick=()=>pcGo(1);
+let _pcs;$('sheetList').addEventListener('scroll',()=>{cancelAnimationFrame(_pcs);_pcs=requestAnimationFrame(pcUpdate);});
+document.addEventListener('keydown',e=>{if($('sheet').hidden)return;if(e.key==='ArrowRight')pcGo(1);if(e.key==='ArrowLeft')pcGo(-1);});
 function closeSheet(){ $('sheet').hidden=true;document.body.style.overflow='';openKey=null; }
 $('sheetClose').onclick=()=>closeSheet();
 $('sheet').addEventListener('click',e=>{if(e.target===$('sheet'))closeSheet();});
